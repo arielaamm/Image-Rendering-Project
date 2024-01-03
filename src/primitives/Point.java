@@ -1,7 +1,9 @@
 package primitives;
 
-final class Point {
+
+public class Point {
     protected Double3 xyz;
+    public static final Point ZERO = new Point(Double3.ZERO);
     public Point(double x,double y,double z) {
         this.xyz = new Double3(x,y,z);
     }
@@ -16,8 +18,9 @@ final class Point {
         return new Point(xyz.add(p.xyz));
     }
     public double distanceSquared(Point p) {
-        Point temp = new Point(xyz.subtract(p.xyz).product(xyz.subtract(p.xyz)));
-        return temp.xyz.
+        return ((xyz.d1 - p.xyz.d1) * (xyz.d1 - p.xyz.d1)
+                + (xyz.d2 - p.xyz.d2) * (xyz.d2 - p.xyz.d2)
+                + (xyz.d3 - p.xyz.d3) * (xyz.d3 - p.xyz.d3));
     }
     public double distance(Point p) {
         return Math.sqrt(this.distanceSquared(p));
