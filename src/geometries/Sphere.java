@@ -6,6 +6,12 @@ import primitives.Vector;
 
 public class Sphere extends RadialGeometry{
     final protected Ray axis;
+
+    public Sphere(double radius, Ray axis) {
+        super(radius);
+        this.axis = axis;
+    }
+
     @Override
     public Vector getNormal(Point p) {
         return null;
