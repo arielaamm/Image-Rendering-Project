@@ -30,7 +30,7 @@ class PointTest {
     @Test
     void distanceSquared() {
         assertEquals(p1.distanceSquared(p1), 0, "ERROR: point squared distance to itself is not zero");
-        //if (!isZero(p1.distanceSquared(p1)))
+        //if (!isZero(p1.distanceSquared(p1)
         assertEquals(p1.distanceSquared(p3), 9, "ERROR: squared distance between points is wrong");
         assertEquals(p3.distanceSquared(p1), 9, "ERROR: squared distance between points is wrong");
     }
