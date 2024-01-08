@@ -51,12 +51,12 @@ class PointTest {
     void distance() {
         // =============== Equivalence Partitions Tests ==============
         //TC01: test that two point are subtracted
-        assertEquals(p1.distance(p3), 3, "ERROR: squared distance between points to itself is wrong");
+        assertEquals(3, p1.distance(p3), "ERROR: squared distance between points to itself is wrong");
         //TC02: test that two point are subtracted
-        assertEquals(p3.distance(p1), 3, "ERROR: squared distance between points to itself is wrong");
+        assertEquals(3, p3.distance(p1), "ERROR: squared distance between points to itself is wrong");
         // ================ Boundary Values Tests ==================
         //TC11: test that point distance from itself is zero
-        assertEquals(p1.distance(p1), 0, "ERROR: point distance to itself is not zero");
+        assertEquals(0, p1.distance(p1), "ERROR: point distance to itself is not zero");
 
     }
 }

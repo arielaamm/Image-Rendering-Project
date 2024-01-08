@@ -1,14 +1,16 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Ray;
 import primitives.Vector;
 
+/**
+ * Class Sphere is the basic class representing a sphere in Euclidean geometry
+ */
 public class Sphere extends RadialGeometry{
     /**
      * The axis of the sphere
      */
-    final protected Point center;
+    protected final Point center;
 
     /**
      * @param radius radius of the sphere
