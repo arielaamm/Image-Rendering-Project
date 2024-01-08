@@ -3,6 +3,8 @@ package geometries;
 import primitives.Point;
 import primitives.Vector;
 
+import static primitives.Util.isZero;
+
 public class Plane extends Geometry{
     /**
      * The point in the plane
@@ -19,6 +21,10 @@ public class Plane extends Geometry{
      * @param c point in the plane
      */
     public Plane(Point a,Point b,Point c) {
+        if (a.equals(b) || b.equals(c) ||c.equals(a))
+            throw new IllegalArgumentException("ERROR : two or more point are collided and it's not allowed");
+        if (isZero(a.subtract(b).crossProduct(c.subtract(b)).length()))
+            throw new IllegalArgumentException("ERROR: Points in the same plane are not allowed");
         this.q = a;
         this.normal = null;
     }

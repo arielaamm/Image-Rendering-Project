@@ -1,21 +1,22 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 public class Tube extends RadialGeometry {
     /**
      * The radius of the tube
      */
-    final private Point center;
+    private final Ray axis;
 
     /**
      * @param radius the radius of the tube
-     * @param center the center of the tube
+     * @param axis the axis of the tube
      */
-    public Tube(double radius, Point center) {
+    public Tube(double radius, Ray axis) {
         super(radius);
-        this.center = center;
+        this.axis = axis;
     }
 
     /**

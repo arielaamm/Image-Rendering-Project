@@ -8,15 +8,15 @@ public class Sphere extends RadialGeometry{
     /**
      * The axis of the sphere
      */
-    final protected Ray axis;
+    final protected Point center;
 
     /**
      * @param radius radius of the sphere
-     * @param axis axis of the sphere
+     * @param center axis of the sphere
      */
-    public Sphere(double radius, Ray axis) {
+    public Sphere(double radius, Point center) {
         super(radius);
-        this.axis = axis;
+        this.center = center;
     }
 
     /**
