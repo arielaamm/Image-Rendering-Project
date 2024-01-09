@@ -11,7 +11,7 @@ class TubeTest {
     /**
      * Unit tests for geometries.Tube class
      */
-    Tube tube = new Tube(1,new Ray(new Point(0,0,1),new Vector(0,0,1)));
+    Tube tube = new Tube(1,new Ray(new Point(0,0,-1),new Vector(0,0,1)));
     @Test
     void getNormal() {
         Vector normal = tube.getNormal(new Point(1,0,0));
