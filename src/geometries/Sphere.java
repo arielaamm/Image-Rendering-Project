@@ -1,22 +1,24 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Ray;
 import primitives.Vector;
 
+/**
+ * Class Sphere is the basic class representing a sphere in Euclidean geometry
+ */
 public class Sphere extends RadialGeometry{
     /**
      * The axis of the sphere
      */
-    final protected Ray axis;
+    protected final Point center;
 
     /**
      * @param radius radius of the sphere
-     * @param axis axis of the sphere
+     * @param center axis of the sphere
      */
-    public Sphere(double radius, Ray axis) {
+    public Sphere(double radius, Point center) {
         super(radius);
-        this.axis = axis;
+        this.center = center;
     }
 
     /**
@@ -25,6 +27,7 @@ public class Sphere extends RadialGeometry{
      */
     @Override
     public Vector getNormal(Point p) {
-        return null;
+        Vector v = p.subtract(this.center);
+        return v.normalize();
     }
 }

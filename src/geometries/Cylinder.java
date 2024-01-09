@@ -1,12 +1,15 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import static primitives.Util.isZero;
 
 /**
  * Class Cylinder is the basic class representing a cylinder in Euclidean geometry
  */
-public class Cylinder extends Tube{
+public class Cylinder extends Tube {
     /**
      * The height of the Cylinder
      */
@@ -14,11 +17,11 @@ public class Cylinder extends Tube{
 
     /**
      * @param radius the radius of the cylinder
-     * @param center the center of the cylinder
+     * @param axis   the center of the cylinder
      * @param height the height of the cylinder
      */
-    public Cylinder(double radius, Point center,double height) {
-        super(radius, center);
+    public Cylinder(double radius, Ray axis, double height) {
+        super(radius, axis);
         this.height = height;
     }
 
@@ -29,6 +32,14 @@ public class Cylinder extends Tube{
      */
     @Override
     public Vector getNormal(Point p) {
+        if (p.equals(axis.head))
+            return axis.direction.normalize();
+        double t = axis.getT(p);
+        if (isZero(t) || isZero(t - height)) {
+            // Point is on one of the bases
+            return axis.direction.normalize();
+        }
+        // Point is on the side surface
         return super.getNormal(p);
     }
 }
