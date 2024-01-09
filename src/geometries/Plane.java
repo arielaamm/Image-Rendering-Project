@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 import static primitives.Util.isZero;
 
@@ -57,5 +60,10 @@ public class Plane extends Geometry{
      */
     public Vector getNormal() {
         return this.normal;
+    }
+
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
     }
 }

@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * Class Tube is the basic class representing a tube in Euclidean geometry
  */
@@ -21,7 +23,9 @@ public class Tube extends RadialGeometry {
         super(radius);
         this.axis = axis;
     }
-
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
+    }
     /**
      * @param p the point at which to calculate the normal vector
      * @return the normal vector of the tube at the point
@@ -32,4 +36,5 @@ public class Tube extends RadialGeometry {
         Point o =  axis.getPoint(t);
         return o.subtract(p).normalize();
     }
+
 }

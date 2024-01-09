@@ -1,6 +1,9 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
+
+import java.util.List;
 
 /**
  * Class Triangle is the basic class representing a triangle in Euclidean geometry
@@ -13,5 +16,9 @@ public class Triangle extends Polygon{
      */
     public Triangle(Point a,Point b,Point c) {
         super(a,b,c);
+    }
+
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
     }
 }

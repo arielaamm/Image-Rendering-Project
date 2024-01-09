@@ -7,7 +7,7 @@ import primitives.Point;
 /**
  * Abstract class Geometry is the base class for all geometries in this project.
  */
-public abstract class Geometry {
+public abstract class Geometry implements Intersectable {
 
 
     /**
@@ -17,4 +17,6 @@ public abstract class Geometry {
      * @return the normal vector of the geometry at the point
      */
     public abstract Vector getNormal(Point p);
+
+
 }

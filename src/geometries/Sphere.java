@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * Class Sphere is the basic class representing a sphere in Euclidean geometry
@@ -20,7 +23,9 @@ public class Sphere extends RadialGeometry{
         super(radius);
         this.center = center;
     }
-
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
+    }
     /**
      * @param p the point at which to calculate the normal vector
      * @return the normal vector of the sphere at the point
@@ -30,4 +35,5 @@ public class Sphere extends RadialGeometry{
         Vector v = p.subtract(this.center);
         return v.normalize();
     }
+
 }

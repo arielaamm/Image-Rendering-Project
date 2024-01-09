@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 /**
@@ -25,6 +27,9 @@ public class Cylinder extends Tube {
         this.height = height;
     }
 
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
+    }
 
     /**
      * @param p the point at which to calculate the normal vector
