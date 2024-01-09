@@ -5,6 +5,9 @@ import primitives.Vector;
 
 import static primitives.Util.isZero;
 
+/**
+ * Class Plane is the basic class representing a plane in Euclidean geometry
+ */
 public class Plane extends Geometry{
     /**
      * The point in the plane
@@ -26,7 +29,9 @@ public class Plane extends Geometry{
         if (isZero(a.subtract(b).crossProduct(c.subtract(b)).length()))
             throw new IllegalArgumentException("ERROR: Points in the same plane are not allowed");
         this.q = a;
-        this.normal = null;
+        Vector v1 = b.subtract(a);
+        Vector v2 = c.subtract(a);
+        this.normal = v1.crossProduct(v2).normalize();
     }
 
     /**

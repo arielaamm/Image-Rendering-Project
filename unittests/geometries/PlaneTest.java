@@ -23,8 +23,8 @@ class PlaneTest {
         //=============== Boundary Values Tests ==================
         //TC01: test two or more point are collided and it's not allowed
         assertThrows(IllegalArgumentException.class, () -> new Plane(p1,p1_collide,p2),"ERROR: two or more point are collided and it's not allowed");
-        //TC02: test two or more point are on the same line and it's not allowed
-        assertThrows(IllegalArgumentException.class, () -> new Plane(p1,p11_sameLine,p12_sameLine),"ERROR: two or more point are on the same line and it's not allowed");
+        //TC02: test 3 points are on the same line and it's not allowed
+        assertThrows(IllegalArgumentException.class, () -> new Plane(p1,p11_sameLine,p12_sameLine),"ERROR: 3 Points on the same line and it's not allowed");
     }
 
     @Test

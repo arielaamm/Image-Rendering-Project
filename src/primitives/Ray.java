@@ -23,6 +23,20 @@ public class Ray {
     }
 
     /**
+     * @param t
+     * @return the point "o" of the ray
+     */
+    public Point getPoint(double t) {
+        return head.add(direction.scale(t));
+    }
+
+    /**
+     * @return the direction of the ray
+     */
+    public Vector getDirection() {
+       return direction;
+    }
+    /**
      * Overrides the equals() method to compare if two Ray objects are equal.
      *
      * @param  obj the object to compare with
@@ -47,4 +61,6 @@ public class Ray {
                 ", direction=" + direction.toString();
 
     }
+
+
 }

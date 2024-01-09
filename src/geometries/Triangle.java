@@ -1,8 +1,10 @@
 package geometries;
 
 import primitives.Point;
-import primitives.Vector;
 
+/**
+ * Class Triangle is the basic class representing a triangle in Euclidean geometry
+ */
 public class Triangle extends Polygon{
     /**
      * @param a point in the triangle
@@ -11,10 +13,5 @@ public class Triangle extends Polygon{
      */
     public Triangle(Point a,Point b,Point c) {
         super(a,b,c);
-    }
-
-    @Override
-    public Vector getNormal(Point p) {
-        return null;
     }
 }

@@ -4,11 +4,14 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+/**
+ * Class Tube is the basic class representing a tube in Euclidean geometry
+ */
 public class Tube extends RadialGeometry {
     /**
      * The radius of the tube
      */
-    private final Ray axis;
+    protected final Ray axis;
 
     /**
      * @param radius the radius of the tube
@@ -25,6 +28,17 @@ public class Tube extends RadialGeometry {
      */
     @Override
     public Vector getNormal(Point p) {
-        return null;
+        double t = getT(p);
+        return axis.getPoint(t).subtract(p).normalize();
+    }
+
+    /**
+     * Calculates the value of T for a given point.
+     *
+     * @param  p    the point for which to calculate T
+     * @return      the value of T for the given point
+     */
+    public double getT(Point p) {
+        return p.subtract(axis.getPoint(0)).dotProduct(axis.getDirection());
     }
 }

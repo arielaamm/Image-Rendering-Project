@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import static primitives.Util.isZero;
+
 /**
  * Class Cylinder is the basic class representing a cylinder in Euclidean geometry
  */
@@ -30,6 +32,16 @@ public class Cylinder extends Tube{
      */
     @Override
     public Vector getNormal(Point p) {
-        return super.getNormal(p);
+        double t = super.getT(p);
+        if (isZero(t) || isZero(t - height)) {
+            // Point is on one of the bases
+            return axis.getDirection().normalize();
+        } else if (t > 0 && t < height) {
+            // Point is on the side surface
+            return super.getNormal(p);
+        } else {
+            throw new IllegalArgumentException("Point is not on the Cylinder");
+        }
     }
+
 }
