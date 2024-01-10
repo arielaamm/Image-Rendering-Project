@@ -2,9 +2,13 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static primitives.Util.isZero;
 
 class PlaneTest {
     /**
@@ -38,8 +42,24 @@ class PlaneTest {
 
     }
 
+    Point p10 = new Point(0,0,2);
+    Point p11 = new Point(2,2,2);
+    Point p12 = new Point(2,0,0);
+    Plane plane = new Plane(p10,p11,p12);
+    Point p13 = new Point(4,0,0);
+    Vector v = new Vector(-4,0,4);
+    Ray ray1 = new Ray(p13,v);
+    Ray ray2 = new Ray(p10,v);
+
     @Test
     void findIntsersections() {
+        //=============== Equivalence Partitions Tests ==============
+        //TC01: test of parallel ray intersects the plane
+        assertTrue(isZero(plane.findIntsersections(ray1).size()), "ERROR: parallel ray does not intersect the plane");
+        assertTrue(isZero(plane.findIntsersections(ray2).size()), "ERROR: parallel ray does not intersect the plane");
+        //TC02: test of orthogonal ray intersects the plane
+        assertEquals(0,plane.findIntsersections(plane.getNormal().scale(-1)).size() , "ERROR: orthogonal ray intersect the plane more than 1 time");
+
 
     }
 }

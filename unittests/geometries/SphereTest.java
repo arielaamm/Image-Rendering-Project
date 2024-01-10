@@ -14,6 +14,8 @@ class SphereTest {
      * Unit tests for geometries.Sphere class
      */
     Sphere normalSphere = new Sphere(1,new Point(0,0,0));
+    Sphere sphere = new Sphere(p100, 1d);
+
     @Test
     void getNormal() {
         Vector normal = sphere.getNormal(new Point(1,0,0));
@@ -33,7 +35,6 @@ class SphereTest {
      */
     @Test
     public void testFindIntersections() {
-        Sphere sphere = new Sphere(p100, 1d);
         final Point gp1 = new Point(0.0651530771650466, 0.355051025721682, 0);
         final Point gp2 = new Point(1.53484692283495, 0.844948974278318, 0);
         final var exp = List.of(gp1, gp2);
