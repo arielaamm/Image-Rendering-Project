@@ -49,7 +49,7 @@ public final class Vector extends Point {
      * @param d the scaling factor
      * @return a new vector that is the result of scaling the current vector
      */
-    public Ray scale (double d){
+    public Vector scale (double d){
         return new Vector(xyz.scale(d));
     }
 

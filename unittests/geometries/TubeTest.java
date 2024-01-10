@@ -5,8 +5,6 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class TubeTest {
@@ -32,6 +30,6 @@ class TubeTest {
     }
 
     @Test
-    void findIntsersections() {
+    void findIntersections() {
     }
 }
