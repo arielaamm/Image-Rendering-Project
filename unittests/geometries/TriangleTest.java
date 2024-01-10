@@ -26,4 +26,9 @@ class TriangleTest {
         assertEquals(0d, normal.dotProduct(p2.subtract(p3)), DELTA,"Polygon's normal is not orthogonal to one of the edges");
         assertEquals(0d, normal.dotProduct(p1.subtract(p3)), DELTA,"Polygon's normal is not orthogonal to one of the edges");
     }
+
+    @Test
+    public void testFindIntersections() {
+
+    }
 }

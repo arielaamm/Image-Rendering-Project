@@ -5,6 +5,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Class Sphere is the basic class representing a sphere in Euclidean geometry
@@ -36,4 +37,6 @@ public class Sphere extends RadialGeometry{
         return v.normalize();
     }
 
+    public Optional<Object> findIntersections(Ray ray) {
+    }
 }

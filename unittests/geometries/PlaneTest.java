@@ -14,7 +14,6 @@ class PlaneTest {
     Point p1 = new Point(0,0,1);
     Point p11_sameLine = new Point(0,0,2);
     Point p12_sameLine = new Point(0,0,3);
-    Point p1_collide = new Point(0,0,1);
     Point p2 = new Point(1,0,0);
     Point p3 = new Point(0,1,0);
 
@@ -22,7 +21,7 @@ class PlaneTest {
     void  testConstructor() {
         //=============== Boundary Values Tests ==================
         //TC01: test two or more point are collided and it's not allowed
-        assertThrows(IllegalArgumentException.class, () -> new Plane(p1,p1_collide,p2),"ERROR: two or more point are collided and it's not allowed");
+        assertThrows(IllegalArgumentException.class, () -> new Plane(p1,p1,p2),"ERROR: two or more point are collided and it's not allowed");
         //TC02: test 3 points are on the same line and it's not allowed
         assertThrows(IllegalArgumentException.class, () -> new Plane(p1,p11_sameLine,p12_sameLine),"ERROR: 3 Points on the same line and it's not allowed");
     }
@@ -36,6 +35,11 @@ class PlaneTest {
         assertTrue(normal.equals(new Vector(1,1,1).normalize()) || normal.equals(new Vector(1,1,1).normalize().scale(-1)), "ERROR: plane normal is not correct");
         //TC02: test that normal is in the right length
         assertEquals(1, normal.length(), "ERROR: plane normal is not in the right length");
+
+    }
+
+    @Test
+    void findIntsersections() {
 
     }
 }

@@ -5,6 +5,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TubeTest {
@@ -27,5 +29,9 @@ class TubeTest {
         assertTrue(normal.equals(new Vector(1,0,0).normalize()) || normal.equals(new Vector(1,0,0).normalize().scale(-1)),"ERROR: tube normal is not correct");
         //TC12: test that normal is in the right length
         assertEquals(1, normal.length(), "ERROR: tube normal is not in the right length");
+    }
+
+    @Test
+    void findIntsersections() {
     }
 }
