@@ -6,7 +6,7 @@ import primitives.Vector;
 
 import java.util.List;
 
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 /**
  * Class Plane is the basic class representing a plane in Euclidean geometry
@@ -63,7 +63,18 @@ public class Plane extends Geometry{
     }
 
     @Override
-    public List<Point> findIntsersections(Ray ray) {
-        return null;
+    public List<Point> findIntersections(Ray ray) {
+        double numerator = normal.dotProduct(q.subtract(ray.head));
+        double denominator = normal.dotProduct(ray.direction);
+        if (isZero(denominator))
+        {
+            return null;
+        }
+        double t = alignZero(numerator / denominator);
+        if (t > 0)
+        {
+            return null;
+        }
+        return List.of(ray.getPoint(t));
     }
 }

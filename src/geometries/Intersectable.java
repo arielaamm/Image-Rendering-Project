@@ -16,6 +16,6 @@ public interface Intersectable {
      * @param  ray  the ray to find intersections with
      * @return      a list of points representing the intersections
      */
-    List<Point> findIntsersections(Ray ray);
+    List<Point> findIntersections(Ray ray);
 
 }

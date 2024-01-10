@@ -23,7 +23,7 @@ public class Tube extends RadialGeometry {
         super(radius);
         this.axis = axis;
     }
-    public List<Point> findIntsersections(Ray ray) {
+    public List<Point> findIntersections(Ray ray) {
         return null;
     }
     /**

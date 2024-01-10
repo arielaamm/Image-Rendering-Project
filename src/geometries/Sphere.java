@@ -24,7 +24,25 @@ public class Sphere extends RadialGeometry{
         super(radius);
         this.center = center;
     }
-    public List<Point> findIntsersections(Ray ray) {
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        double Tm = ray.direction.dotProduct(center.subtract(ray.head));
+        double d = Math.sqrt(ray.direction.lengthSquared() - Tm * Tm);
+        if (d > radius) {
+            return null;
+        }
+        double Th = Math.sqrt(radius * radius - d * d);
+        double t1 = Tm - Th;
+        double t2 = Tm + Th;
+        if (t1 > 0 && t2 > 0) {
+            return List.of(ray.getPoint(t1), ray.getPoint(t2));
+        }
+        if (t1 > 0) {
+            return List.of(ray.getPoint(t1));
+        }
+        if (t2 > 0) {
+            return List.of(ray.getPoint(t2));
+        }
         return null;
     }
     /**
@@ -35,8 +53,5 @@ public class Sphere extends RadialGeometry{
     public Vector getNormal(Point p) {
         Vector v = p.subtract(this.center);
         return v.normalize();
-    }
-
-    public Optional<Object> findIntersections(Ray ray) {
     }
 }

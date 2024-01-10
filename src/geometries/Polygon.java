@@ -79,7 +79,7 @@ public class Polygon extends Geometry {
             throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
       }
    }
-   public List<Point> findIntsersections(Ray ray) {
+   public List<Point> findIntersections(Ray ray) {
       return null;
    }
    @Override
