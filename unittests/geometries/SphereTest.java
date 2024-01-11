@@ -13,8 +13,11 @@ class SphereTest {
     /**
      * Unit tests for geometries.Sphere class
      */
+    private final Point p001 = new Point(0, 0, 1);
+    private final Point p100 = new Point(1, 0, 0);
+    private final Vector v001 = new Vector(0, 0, 1);
     Sphere normalSphere = new Sphere(1,new Point(0,0,0));
-    Sphere sphere = new Sphere(p100, 1d);
+    Sphere sphere = new Sphere(1d,p100);
 
     @Test
     void getNormal() {
@@ -27,14 +30,12 @@ class SphereTest {
 
     }
 
-    private final Point p001 = new Point(0, 0, 1);
-    private final Point p100 = new Point(1, 0, 0);
-    private final Vector v001 = new Vector(0, 0, 1);
+
     /**
      * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
      */
     @Test
-    public void testFindIntersections() {
+    void testFindIntersections() {
         final Point gp1 = new Point(0.0651530771650466, 0.355051025721682, 0);
         final Point gp2 = new Point(1.53484692283495, 0.844948974278318, 0);
         final var exp = List.of(gp1, gp2);

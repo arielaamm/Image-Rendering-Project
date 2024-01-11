@@ -73,8 +73,8 @@ public class Plane extends Geometry{
         double t = alignZero(numerator / denominator);
         if (t > 0)
         {
-            return null;
+            return List.of(ray.getPoint(t));
         }
-        return List.of(ray.getPoint(t));
+        return null;
     }
 }

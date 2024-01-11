@@ -52,20 +52,20 @@ class PlaneTest {
         //=============== Equivalence Partitions Tests ==============
         //TC01: test of a usual ray intersects the plane
         Ray rayUsual = new Ray(new Point(0,0,5),new Vector(-1,1,-3));
-        assertEquals(1,plane.findIntersections(rayUsual).size() , "ERROR: orthogonal ray intersect the plane more than 1 time");
+        assertEquals(1,plane.findIntersections(rayUsual).size() , "ERROR: the ray intersect the plane more than 1 time");
         assertEquals(List.of(new Point(-1,1,2)),plane.findIntersections(rayUsual),"ERROR: the intersection point does not equal to the expected point");
         //TC02: test of a usual ray beyond the plane that intersects the plane
         Ray rayBeyond = new Ray(new Point(-3,0,0),new Vector(-3,0,-1));
-        assertTrue(isZero(plane.findIntersections(rayBeyond).size()), "ERROR: parallel ray does not intersect the plane");
+        assertNull(plane.findIntersections(rayBeyond), "ERROR: parallel ray does not intersect the plane");
 
         //=============== Boundary Values Tests ==================
         //*** Test cases of parallel ***
         //TC11: test of parallel ray intersects the plane
         Ray rayParallel = new Ray(new Point(0,5,0),new Vector(-1,-1,2));
-        assertTrue(isZero(plane.findIntersections(rayParallel).size()), "ERROR: parallel ray doesn't intersect the plane");
+        assertNull(plane.findIntersections(rayParallel), "ERROR: parallel ray doesn't intersect the plane");
         //TC12: test a parallel ray that  intersects the plane
         Ray rayParallelIncluded = new Ray(new Point(-1,1,2),new Vector(0,1,-1));
-        assertTrue(isZero(plane.findIntersections(rayParallelIncluded).size()), "ERROR: parallel and included ray does not intersect the plane");
+        assertNull(plane.findIntersections(rayParallelIncluded), "ERROR: parallel and included ray does not intersect the plane");
 
         //*** Test cases of orthogonal ***
         //TC13: test of orthogonal before ray intersects the plane
@@ -74,9 +74,16 @@ class PlaneTest {
         assertEquals(List.of(new Point(-1,-1,4)),plane.findIntersections(rayOrthogonalBefore),"ERROR: the intersection point does not equal to the expected point");
         //TC14: test of orthogonal in ray intersects the plane
         Ray rayOrthogonalIn = new Ray(new Point(-2,1,3),new Vector(-1,-1,-1));
-        assertTrue(isZero(plane.findIntersections(rayOrthogonalIn).size()) , "ERROR: orthogonal in ray intersect the plane 0 time");
+        assertNull(plane.findIntersections(rayOrthogonalIn) , "ERROR: orthogonal in ray intersect the plane 0 time");
         //TC14: test of orthogonal after ray intersects the plane
         Ray rayOrthogonalAfter = new Ray(new Point(-2,-2,3),new Vector(-1,-1,-1));
-        assertTrue(isZero(plane.findIntersections(rayOrthogonalAfter).size()) , "ERROR: orthogonal after ray intersect the plane 0 time");
+        assertNull(plane.findIntersections(rayOrthogonalAfter) , "ERROR: orthogonal after ray intersect the plane 0 time");
+        //*** Test cases of beyond the plane ***
+        //TC15: test of beyond ray intersects the plane starting from the plane
+        Ray rayBeyondRay = new Ray(new Point(-1,1,2),new Vector(-1,1,-2));
+        assertNull(plane.findIntersections(rayBeyondRay) , "ERROR: beyond ray intersect the plane 0 time");
+        //TC16: test of beyond ray intersects the plane starting from the reference point in the plane
+        Ray rayBeyondRay2 = new Ray(new Point(0,0,2),new Vector(-2,2,-2));
+        assertNull(plane.findIntersections(rayBeyondRay2) , "ERROR: beyond ray intersect the plane 0 time");
     }
 }

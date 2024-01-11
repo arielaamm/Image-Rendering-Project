@@ -22,20 +22,23 @@ public class Triangle extends Polygon{
     }
 
     public List<Point> findIntersections(Ray ray) {
-        Vector v1 = super.vertices.get(0).subtract(ray.head);
-        Vector v2 = super.vertices.get(1).subtract(ray.head);
-        Vector v3 = super.vertices.get(2).subtract(ray.head);
+        Vector v1 = vertices.get(0).subtract(ray.head);
+        Vector v2 = vertices.get(1).subtract(ray.head);
+        Vector v3 = vertices.get(2).subtract(ray.head);
         Vector n1 = v1.crossProduct(v2).normalize();
-        Vector n2 = v1.crossProduct(v3).normalize();
-        Vector n3 = v2.crossProduct(v3).normalize();
-        if (isZero(n1.dotProduct(ray.direction)) || isZero(n2.dotProduct(ray.direction)) || isZero(n3.dotProduct(ray.direction))) {
+        Vector n2 = v2.crossProduct(v3).normalize();
+        Vector n3 = v3.crossProduct(v1).normalize();
+        double number = n1.dotProduct(ray.direction);
+        double number1 = n2.dotProduct(ray.direction);
+        double number2 = n3.dotProduct(ray.direction);
+        if (isZero(number) || isZero(number1) || isZero(number2)) {
             return null;
         }
         else if (n1.dotProduct(ray.direction) < 0 && n2.dotProduct(ray.direction) < 0 && n3.dotProduct(ray.direction) < 0) {
             return super.findIntersections(ray);
         }
         else if (n1.dotProduct(ray.direction) > 0 && n2.dotProduct(ray.direction) > 0 && n3.dotProduct(ray.direction) > 0) {
-            return super.findIntersections(ray);
+            return plane.findIntersections(ray);
         }
         return null;
     }
