@@ -62,7 +62,7 @@ class PlaneTest {
         //*** Test cases of parallel ***
         //TC11: test of parallel ray intersects the plane
         Ray rayParallel = new Ray(new Point(0,5,0),new Vector(-1,-1,2));
-        assertTrue(isZero(plane.findIntersections(rayParallel).size()), "ERROR: parallel ray does not intersect the plane");
+        assertTrue(isZero(plane.findIntersections(rayParallel).size()), "ERROR: parallel ray doesn't intersect the plane");
         //TC12: test a parallel ray that  intersects the plane
         Ray rayParallelIncluded = new Ray(new Point(-1,1,2),new Vector(0,1,-1));
         assertTrue(isZero(plane.findIntersections(rayParallelIncluded).size()), "ERROR: parallel and included ray does not intersect the plane");
