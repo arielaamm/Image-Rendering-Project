@@ -80,7 +80,34 @@ public class Polygon extends Geometry {
       }
    }
    public List<Point> findIntersections(Ray ray) {
-      return null;
+      double denom = plane.getNormal().dotProduct(ray.direction);
+
+    // Check if ray is parallel to the plane
+      if (isZero(denom))
+         return null;
+
+      Vector subtract = vertices.getFirst().subtract(ray.head);
+      double  t = (subtract.dotProduct(plane.getNormal())) / denom;
+
+    // Check if intersection point is behind the ray
+      if (t < 0)
+         return null;
+
+      Point intersection_point = ray.getPoint(t);
+
+      // Check if intersection point is inside the polygon
+      for (int i = 0; i < vertices.size(); i++) {
+         Point edgeStart =  vertices.get(i);
+         Point edgeEnd =  vertices.get((i + 1) % vertices.size());
+         Vector edgeVector = edgeEnd.subtract(edgeStart);
+         Vector edgeNormal = edgeVector.crossProduct(plane.getNormal());
+
+         if (intersection_point.subtract(edgeStart).dotProduct(edgeNormal) < 0) {
+            return null; // Outside the polygon
+         }
+      }
+
+      return List.of(intersection_point);
    }
    @Override
    public Vector getNormal(Point point) { return plane.getNormal(); }
