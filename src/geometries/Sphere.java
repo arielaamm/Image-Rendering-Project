@@ -5,7 +5,6 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Class Sphere is the basic class representing a sphere in Euclidean geometry
