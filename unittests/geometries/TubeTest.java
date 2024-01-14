@@ -27,9 +27,12 @@ class TubeTest {
         assertTrue(normal.equals(new Vector(1,0,0).normalize()) || normal.equals(new Vector(1,0,0).normalize().scale(-1)),"ERROR: tube normal is not correct");
         //TC12: test that normal is in the right length
         assertEquals(1, normal.length(), "ERROR: tube normal is not in the right length");
+    }@Test
+    void findIntersections() {
+
+        assertNull(tube.findIntersections(new Ray(new Point(3, 0, 0), new Vector(-1, 0, 0))),"ERROR: tube findIntersections does not return null");
+
     }
 
-    @Test
-    void findIntersections() {
-    }
+
 }
