@@ -1,6 +1,8 @@
 package primitives;
 
 
+import java.util.List;
+
 /**
  * A point in 3D space.
  */
@@ -94,5 +96,17 @@ public class Point {
     @Override
     public String toString() {
         return xyz.toString();
+    }
+
+    public static List<Double> getQuadraticequation(Vector dir, Point P0, double r) {
+        double a = (dir.xyz.d1 * dir.xyz.d1 + dir.xyz.d2 * dir.xyz.d2); //CoefficientPowerTwo
+        double b = (dir.xyz.d1 * P0.xyz.d1 * 2 + dir.xyz.d2 * P0.xyz.d2 * 2); //CoefficientPowerOne
+        double c = (P0.xyz.d1 * P0.xyz.d1 + P0.xyz.d2 * P0.xyz.d2 - r * r); //CoefficientPowerZero
+        double sqrt = Math.sqrt(b * b - 4 * a * c);
+        double monePlas = -b + sqrt;
+        double moneMinu = -b - sqrt;
+        double t1 = monePlas / (2 * a);
+        double t2 = moneMinu / (2 * a);
+        return List.of(t1, t2);
     }
 }
