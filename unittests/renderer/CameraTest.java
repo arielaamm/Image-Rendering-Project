@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import primitives.*;
 import renderer.*;
-import scene.Scene;
+//import scene.Scene;
 
 import javax.imageio.ImageWriter;
 
@@ -28,7 +28,7 @@ class CameraTest {
     * {@link renderer.Camera#constructRay(int, int, int, int)}.
     */
    @Test
-   void testConstructRay() {
+   void testConstructRay() throws CloneNotSupportedException {
       final String badRay  = "Bad ray";
 
       // ============ Equivalence Partitions Tests ==============

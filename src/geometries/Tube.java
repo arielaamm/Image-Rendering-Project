@@ -27,7 +27,9 @@ public class Tube extends RadialGeometry {
     }
     @Override
     public List<Point> findIntersections(Ray ray) {
-        List<Double> T1T2 = getQuadraticequation(axis.direction, axis.head, radius);
+        List<Double> T1T2 = getQuadraticequation(ray.direction, ray.head, radius);
+        if (T1T2 == null)
+            return null;
         return List.of(ray.getPoint(T1T2.get(0)), ray.getPoint(T1T2.get(1)));
     }
     /**

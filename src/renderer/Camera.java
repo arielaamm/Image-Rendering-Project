@@ -56,13 +56,13 @@ public class Camera implements Cloneable{
 
         /**
          * Set the size of the view plane
-         * @param heightFromViewPlane
-         * @param widthFromViewPlane
+         * @param heightViewPlane
+         * @param widthViewPlane
          * @return this
          */
-        public Builder setVpSize(double heightFromViewPlane, double widthFromViewPlane){
-            camera.heightFromViewPlane = heightFromViewPlane;
-            camera.widthFromViewPlane = widthFromViewPlane;
+        public Builder setVpSize(double heightViewPlane, double widthViewPlane){
+            camera.heightViewPlane = heightViewPlane;
+            camera.widthViewPlane = widthViewPlane;
             return this;
         }
 
@@ -80,18 +80,18 @@ public class Camera implements Cloneable{
                 throw new MissingResourceException("Missing Resource",Camera.class.getSimpleName(),"location");
             if(camera.Vto == null || camera.Vup == null)
                 throw new MissingResourceException("Missing Resource",Camera.class.getSimpleName(),"direction");
-            if(camera.heightFromViewPlane == 0.0 || camera.widthFromViewPlane == 0.0)
+            if(camera.heightViewPlane == 0.0 || camera.widthViewPlane == 0.0)
                 throw new MissingResourceException("Missing Resource",Camera.class.getSimpleName(),"vpSize");
             if(camera.distanceFromViewPlane == 0.0)
                 throw new MissingResourceException("Missing Resource",Camera.class.getSimpleName(),"vpDistance");
 
             if(camera.Vto.crossProduct(camera.Vup).length() == 0)
                 throw new IllegalArgumentException("Vto and Vup are parallel");
-            if(camera.heightFromViewPlane < 0.0 || camera.widthFromViewPlane < 0.0)
+            if(camera.heightViewPlane < 0.0 || camera.widthViewPlane < 0.0)
                 throw new IllegalArgumentException("Negative size");
             if(camera.distanceFromViewPlane < 0.0)
                 throw new IllegalArgumentException("Negative distance");
-            if (camera.heightFromViewPlane == 0.0 || camera.widthFromViewPlane == 0.0)
+            if (camera.heightViewPlane == 0.0 || camera.widthViewPlane == 0.0)
                 throw new IllegalArgumentException("Zero size");
             if (camera.distanceFromViewPlane == 0.0)
                 throw new IllegalArgumentException("Zero distance");
@@ -103,8 +103,8 @@ public class Camera implements Cloneable{
     private Vector Vto;
     private Vector Vright;
     private Vector Vup;
-    private double heightFromViewPlane = 0.0;
-    private double widthFromViewPlane = 0.0;
+    private double heightViewPlane = 0.0;
+    private double widthViewPlane = 0.0;
     private double distanceFromViewPlane = 0.0;
 
     private Camera(){}
@@ -113,16 +113,16 @@ public class Camera implements Cloneable{
      * Get the height of the view plane
      * @return Height of the view plane
      */
-    public double getHeightFromViewPlane() {
-        return heightFromViewPlane;
+    public double getHeightViewPlane() {
+        return heightViewPlane;
     }
 
     /**
      * Get the width of the view plane
      * @return Width of the view plane
      */
-    public double getWidthFromViewPlane() {
-        return widthFromViewPlane;
+    public double getWidthViewPlane() {
+        return widthViewPlane;
     }
 
     /**
@@ -143,13 +143,12 @@ public class Camera implements Cloneable{
 
     /**
      * Set the location of the camera
-     * @param nX - within of view plane
+     * @param nX - width of the view plane
      * @param nY - height of the view plane
      * @param j - index in the column
      * @param i - index in the row
      * @return Ray
      */
     public Ray constructRay(int nX, int nY, int j, int i){
-
     }
 }
