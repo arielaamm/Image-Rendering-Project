@@ -1,7 +1,9 @@
 package renderer;
 
 import geometries.Geometry;
+import geometries.Plane;
 import geometries.Sphere;
+import geometries.Triangle;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
@@ -21,8 +23,6 @@ class IntegrationTest {
 
     @Test
     void testConstructRayWithShpere() throws CloneNotSupportedException {
-        Sphere sphere;
-
         //TC01: First test case
         cameraBuilder.setLocation(new Point(0,0,0));
         cameraBuilder.build();
@@ -50,12 +50,33 @@ class IntegrationTest {
     }
 
     @Test
-    void testConstructRayWithPlane() {
+    void testConstructRayWithPlane() throws CloneNotSupportedException {
+        //TC01: First test case
+        cameraBuilder.setLocation(new Point(0,0,1));
+        cameraBuilder.build();
+        assertEquals(9, getIntersections(new Plane(new Point(0, 0, -1), new Point(1, 0, -1), new Point(0, 1, -1))).size());
 
+        //TC02: Second test case
+        cameraBuilder.setLocation(new Point(0,0,1));
+        cameraBuilder.build();
+        assertEquals(9, getIntersections(new Plane(new Point(0, 0, -2), new Point(-3,0,0), new Point(-3,2,0))).size());
+
+        //TC03: Third test case
+        cameraBuilder.setLocation(new Point(0,0,1));
+        cameraBuilder.build();
+        assertEquals(6, getIntersections(new Plane(new Point(0, 0, -4), new Point(-3,0,0), new Point(-3,2,0))).size());
     }
     @Test
-    void testConstructRayWithTriangle() {
+    void testConstructRayWithTriangle() throws CloneNotSupportedException {
+        //TC01: First test case
+        cameraBuilder.setLocation(new Point(0,0,1));
+        cameraBuilder.build();
+        assertEquals(1, getIntersections(new Triangle(new Point(0, 1, -2), new Point(-1,-1,-2), new Point(1,-1,2))).size());
 
+        //TC02: Second test case
+        cameraBuilder.setLocation(new Point(0,0,1));
+        cameraBuilder.build();
+        assertEquals(2, getIntersections(new Triangle(new Point(0,20, -2), new Point(-1,-1,-2), new Point(1,-1,2))).size());
     }
     private List<Point> getIntersections(Geometry geometry) throws CloneNotSupportedException {
         pointsIntersections = new ArrayList<>();
