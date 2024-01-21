@@ -21,7 +21,7 @@ public class Camera implements Cloneable{
          * @param camera camera
          */
         public Builder(Camera camera) {
-            this.camera = camera;
+            Builder.camera = camera;
         }
 
         /**
@@ -150,5 +150,6 @@ public class Camera implements Cloneable{
      * @return Ray
      */
     public Ray constructRay(int nX, int nY, int j, int i){
+        return new Ray(location, Vto);
     }
 }

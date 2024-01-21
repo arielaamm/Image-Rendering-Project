@@ -25,7 +25,8 @@ public class Sphere extends RadialGeometry{
     }
     @Override
     public List<Point> findIntersections(Ray ray) {
-        double d,Tm=0;
+        double d;
+        double Tm=0;
         if (center.equals(ray.head)) {
             d = 0;
         }

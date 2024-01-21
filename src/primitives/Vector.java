@@ -119,6 +119,11 @@ public final class Vector extends Point {
         return super.equals(other);
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     /**
      * Returns a string representation of the Java function.
      *

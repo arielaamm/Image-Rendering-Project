@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.Objects;
+
 /**
  * Class Ray is the basic class representing a ray in 3D space.
  */
@@ -51,6 +53,11 @@ public class Ray {
         return (obj instanceof Ray other)
                 && this.head.equals(other.head)
                 && this.direction.equals(other.direction);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(head, direction);
     }
 
     /**

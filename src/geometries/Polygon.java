@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static primitives.Util.isZero;
@@ -14,103 +15,98 @@ import primitives.Vector;
  * @author Dan
  */
 public class Polygon extends Geometry {
-   /** List of polygon's vertices */
-   protected final List<Point> vertices;
-   /** Associated plane in which the polygon lays */
-   protected final Plane       plane;
-   /** The size of the polygon - the amount of the vertices in the polygon */
-   private final int           size;
+    /** List of polygon's vertices */
+    protected final List<Point> vertices;
+    /** Associated plane in which the polygon lays */
+    protected final Plane         plane;
+    /** The size of the polygon - the amount of the vertices in the polygon */
+    private final int              size;
 
-   /**
-    * Polygon constructor based on vertices list. The list must be ordered by edge
-    * path. The polygon must be convex.
-    * @param  vertices                 list of vertices according to their order by
-    *                                  edge path
-    * @throws IllegalArgumentException in any case of illegal combination of
-    *                                  vertices:
-    *                                  <ul>
-    *                                  <li>Less than 3 vertices</li>
-    *                                  <li>Consequent vertices are in the same
-    *                                  point
-    *                                  <li>The vertices are not in the same
-    *                                  plane</li>
-    *                                  <li>The order of vertices is not according
-    *                                  to edge path</li>
-    *                                  <li>Three consequent vertices lay in the
-    *                                  same line (180&#176; angle between two
-    *                                  consequent edges)
-    *                                  <li>The polygon is concave (not convex)</li>
-    *                                  </ul>
-    */
-   public Polygon(Point... vertices) {
-      if (vertices.length < 3)
-         throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
-      this.vertices = List.of(vertices);
-      size          = vertices.length;
+    /**
+     * Polygon constructor based on vertices list. The list must be ordered by edge
+     * path. The polygon must be convex.
+     * @param  vertices list of vertices according to their order by edge path
+     * @throws IllegalArgumentException in any case of illegal combination of
+     *                                             vertices:
+     *                                             <ul>
+     *                                             <li>Less than 3 vertices</li>
+     *                                             <li>Consequent vertices are in the same
+     *                                             point
+     *                                             <li>The vertices are not in the same
+     *                                             plane</li>
+     *                                             <li>The order of vertices is not according
+     *                                             to edge path</li>
+     *                                             <li>Three consequent vertices lay in the
+     *                                             same line (180&#176; angle between two
+     *                                             consequent edges)
+     *                                             <li>The polygon is concave (not convex)</li>
+     *                                             </ul>
+     */
+    public Polygon(Point... vertices) {
+        if (vertices.length < 3)
+            throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
+        this.vertices = List.of(vertices);
+        size             = vertices.length;
 
-      // Generate the plane according to the first three vertices and associate the
-      // polygon with this plane.
-      // The plane holds the invariant normal (orthogonal unit) vector to the polygon
-      plane         = new Plane(vertices[0], vertices[1], vertices[2]);
-      if (size == 3) return; // no need for more tests for a Triangle
+        // Generate the plane according to the first three vertices and associate the
+        // polygon with this plane.
+        // The plane holds the invariant normal (orthogonal unit) vector to the polygon
+        plane            = new Plane(vertices[0], vertices[1], vertices[2]);
+        if (size == 3) return; // no need for more tests for a Triangle
 
-      Vector  n        = plane.getNormal();
-      // Subtracting any subsequent points will throw an IllegalArgumentException
-      // because of Zero Vector if they are in the same point
-      Vector  edge1    = vertices[vertices.length - 1].subtract(vertices[vertices.length - 2]);
-      Vector  edge2    = vertices[0].subtract(vertices[vertices.length - 1]);
+        Vector  n          = plane.getNormal();
+        // Subtracting any subsequent points will throw an IllegalArgumentException
+        // because of Zero Vector if they are in the same point
+        Vector  edge1     = vertices[vertices.length - 1].subtract(vertices[vertices.length - 2]);
+        Vector  edge2     = vertices[0].subtract(vertices[vertices.length - 1]);
 
-      // Cross Product of any subsequent edges will throw an IllegalArgumentException
-      // because of Zero Vector if they connect three vertices that lay in the same
-      // line.
-      // Generate the direction of the polygon according to the angle between last and
-      // first edge being less than 180 deg. It is hold by the sign of its dot product
-      // with the normal. If all the rest consequent edges will generate the same sign
-      // - the polygon is convex ("kamur" in Hebrew).
-      boolean positive = edge1.crossProduct(edge2).dotProduct(n) > 0;
-      for (var i = 1; i < vertices.length; ++i) {
-         // Test that the point is in the same plane as calculated originally
-         if (!isZero(vertices[i].subtract(vertices[0]).dotProduct(n)))
-            throw new IllegalArgumentException("All vertices of a polygon must lay in the same plane");
-         // Test the consequent edges have
-         edge1 = edge2;
-         edge2 = vertices[i].subtract(vertices[i - 1]);
-         if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
-            throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
-      }
-   }
-   public List<Point> findIntersections(Ray ray) {
-//      double denom = plane.getNormal().dotProduct(ray.direction);
-//
-//    // Check if ray is parallel to the plane
-//      if (isZero(denom))
-//         return null;
-//
-//      Vector subtract = vertices.getFirst().subtract(ray.head);
-//      double  t = (subtract.dotProduct(plane.getNormal())) / denom;
-//
-//    // Check if intersection point is behind the ray
-//      if (t < 0)
-//         return null;
-//
-//      Point intersection_point = ray.getPoint(t);
-//
-//      // Check if intersection point is inside the polygon
-//      for (int i = 0; i < vertices.size(); i++) {
-//         Point edgeStart =  vertices.get(i);
-//         Point edgeEnd =  vertices.get((i + 1) % vertices.size());
-//         Vector edgeVector = edgeEnd.subtract(edgeStart);
-//         Vector edgeNormal = edgeVector.crossProduct(plane.getNormal());
-//
-//         if (intersection_point.subtract(edgeStart).dotProduct(edgeNormal) < 0) {
-//            return null; // Outside the polygon
-//         }
-//      }
-//
-//      return List.of(intersection_point);
-   return null;
-   }
-   @Override
-   public Vector getNormal(Point point) { return plane.getNormal(); }
+        // Cross Product of any subsequent edges will throw an IllegalArgumentException
+        // because of Zero Vector if they connect three vertices that lay in the same
+        // line.
+        // Generate the direction of the polygon according to the angle between last and
+        // first edge being less than 180 deg. It is hold by the sign of its dot product
+        // with the normal. If all the rest consequent edges will generate the same sign
+        // - the polygon is convex ("kamur" in Hebrew).
+        boolean positive = edge1.crossProduct(edge2).dotProduct(n) > 0;
+        for (var i = 1; i < vertices.length; ++i) {
+            // Test that the point is in the same plane as calculated originally
+            if (!isZero(vertices[i].subtract(vertices[0]).dotProduct(n)))
+                throw new IllegalArgumentException("All vertices of a polygon must lay in the same plane");
+            // Test the consequent edges have
+            edge1 = edge2;
+            edge2 = vertices[i].subtract(vertices[i - 1]);
+            if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
+                throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
+        }
+    }
+     /**
+      * Finds intersections between the given ray and the list of points.
+      * @param ray The ray to find intersections with.
+      * @return A list of points representing the intersections with the ray.
+      */
+     public List<Point> findIntersections(Ray ray) {
+          List <Point> intersectionList = plane.findIntersections(ray);
+             if(intersectionList == null)
+                 return null;
+             Point intersectionPoint = intersectionList.getFirst();
+             List <Double> listNum = new ArrayList<>();
+             // Check if intersection point is inside the polygon
+             for (int i = 0; i < vertices.size(); i++) {
+                 Vector v1 =  vertices.get(i).subtract(ray.head);
+                 Vector v2 =  vertices.get((i+1)%vertices.size()).subtract(ray.head);
+                 Vector n = v1.crossProduct(v2);
+                 double num = n.dotProduct(ray.direction);
+                 if (isZero(num)) {
+                     return null;
+                 }
+                 listNum.add(num);
+             }
+             if (listNum.stream().allMatch(value -> value > 0) || listNum.stream().allMatch(value -> value < 0)) {
+                 return List.of(intersectionPoint);
+             }
+             return null;
+     }
+    @Override
+    public Vector getNormal(Point point) { return plane.getNormal(); }
 
 }
