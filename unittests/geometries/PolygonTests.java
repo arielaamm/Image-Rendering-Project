@@ -9,6 +9,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * Testing Polygons
  * @author Dan
@@ -89,26 +91,29 @@ public class PolygonTests {
    }
    @Test
    void findIntersections() {
-//      Polygon polygon = new Polygon(
-//              new Point(1, 0, 0),
-//              new Point(0, -1, 0),
-//              new Point(1, -2, 0),
-//              new Point(2, -1, 0));
-//         // =============== Equivalence Partitions Tests ===============
-//         // TC01: Test with a ray that intersects the polygon at a single point
-//         assertEquals(polygon.findIntersections(new Ray(new Point(0,0,1),new Vector(1,-1,-1))), new Point(1,-1,0), "ERROR: findIntersections does not return the correct point");
-//         // Test case for EP2: Test with a ray that intersects the polygon at multiple points
-//         // Test case for EP3: Test with a ray that does not intersect the polygon
-//         // Test case for EP4: Test with a ray that starts inside the polygon
-//         // Test case for EP5: Test with a ray that starts outside the polygon
-//
-//         // Boundary Value Analysis Tests
-//         // Test case for BVA1: Test with the minimum number of edges and vertices in the polygon
-//         // Test case for BVA2: Test with the maximum number of edges and vertices in the polygon
-//         // Test case for BVA3: Test with a ray that intersects the polygon at a vertex
-//         // Test case for BVA4: Test with a ray that intersects the polygon at an edge
-//         // Test case for BVA5: Test with a ray that intersects the polygon at a corner point
+      Polygon polygon = new Polygon(
+              new Point(1, 0, 0),
+              new Point(0, -1, 0),
+              new Point(1, -2, 0),
+              new Point(2, -1, 0));
+      // =============== Equivalence Partitions Tests ===============
+      // TC01: Test with a ray that intersects the polygon at a single point
+      assertEquals(List.of(new Point(1,-1.5,0)),polygon.findIntersections(new Ray(new Point(0,0,1.5),new Vector(1,-1.5,-1.5))), "ERROR: findIntersections does not return the correct point");
+      // TC02: Test with a ray that does not intersect the polygon
+      assertNull(polygon.findIntersections(new Ray(new Point(0,0,1),new Vector(-1,-1,-1))), "ERROR: findIntersections does not return null when there is no intersection");
+      // TC03: Test with a ray that starts inside the polygon
+      assertNull(polygon.findIntersections(new Ray(new Point(1,-1,0),new Vector(-1,1,1))), "ERROR: findIntersections does not return null when there is no intersection");
+      // TC04: Test with a ray that starts outside the polygon
+      assertNull(polygon.findIntersections(new Ray(new Point(-1,1 ,1), new Vector(-1,1,1))), "ERROR: findIntersections does not return null when the ray starts outside the polygon");
 
-
+      //================ Boundary Value Analysis ===================
+      // TC11: Test with a ray that intersects the polygon at an edge from the outer side
+      assertNull(polygon.findIntersections(new Ray(new Point(0,0,1),new Vector(0.5,-0.5,-1))), "ERROR: findIntersections does not return null when the ray starts outside the polygon");
+      // TC12: Test with a ray that intersects the polygon at a vertex from the outer side
+      assertNull(polygon.findIntersections(new Ray(new Point(0,0,1),new Vector(0,-1,-1))), "ERROR: findIntersections does not return null when the ray starts outside the polygon");
+      // TC13: Test with a ray that intersects the polygon at a vertex from the inner side
+      assertNull(polygon.findIntersections(new Ray(new Point(1,-1,0),new Vector(-1,0,0))), "ERROR: findIntersections does not return null when the ray starts inside the polygon");
+      // TC14: Test with a ray that intersects the polygon at an edge from the inner side
+      assertNull(polygon.findIntersections(new Ray(new Point(1,-1,0),new Vector(0.5,-0.5,-1))), "ERROR: findIntersections does not return null when the ray starts inside the polygon");
    }
 }

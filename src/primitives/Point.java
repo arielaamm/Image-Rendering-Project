@@ -1,8 +1,8 @@
 package primitives;
 
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A point in 3D space.
@@ -76,9 +76,10 @@ public class Point {
         return Math.sqrt(this.distanceSquared(p));
     }
 
+
+
     /**
      * Checks if this object is equal to another object.
-     *
      * @param  obj	the object to compare to
      * @return     	true if the objects are equal, false otherwise
      */
@@ -98,20 +99,42 @@ public class Point {
     public String toString() {
         return xyz.toString();
     }
+    @Override
+    public int hashCode() {
+        return Objects.hash(xyz);
+    }
+    /**
+     * Calculates the solutions for a quadratic equation in the form of ax^2 + bx + c = 0
+     *
+     * @param dir a vector representing the direction of the quadratic equation
+     * @param P0 a point on the quadratic equation
+     * @param r the radius of the quadratic equation
+     * @return a list containing the solutions for t in the equation
+     */
+    public static List<Double> getQuadraticEquationSolutions(Vector dir, Point P0, double r) {
+        // Coefficients of the quadratic equation
+        double a = dir.xyz.d1 * dir.xyz.d1 + dir.xyz.d2 * dir.xyz.d2; // CoefficientPowerTwo
+        double b = dir.xyz.d1 * P0.xyz.d1 * 2 + dir.xyz.d2 * P0.xyz.d2 * 2; // CoefficientPowerOne
+        double c = P0.xyz.d1 * P0.xyz.d1 + P0.xyz.d2 * P0.xyz.d2 - r * r; // CoefficientPowerZero
 
-    public static List<Double> getQuadraticequation(Vector dir, Point P0, double r) {
-        double a = (dir.xyz.d1 * dir.xyz.d1 + dir.xyz.d2 * dir.xyz.d2); //CoefficientPowerTwo
-        double b = (dir.xyz.d1 * P0.xyz.d1 * 2 + dir.xyz.d2 * P0.xyz.d2 * 2); //CoefficientPowerOne
-        double c = (P0.xyz.d1 * P0.xyz.d1 + P0.xyz.d2 * P0.xyz.d2 - r * r); //CoefficientPowerZero
+        // Calculate the discriminant
         double delta = b * b - 4 * a * c;
+
+        // If the discriminant is negative, there are no real solutions
         if (delta < 0) {
             return null;
         }
+
+        // Calculate the square root of the discriminant
         double sqrt = Math.sqrt(delta);
-        double monePlas = -b + sqrt;
-        double moneMinu = -b - sqrt;
-        double t1 = monePlas / (2 * a);
-        double t2 = moneMinu / (2 * a);
+
+        // Calculate the solutions for t
+        double monePlus = -b + sqrt;
+        double moneMinus = -b - sqrt;
+        double t1 = monePlus / (2 * a);
+        double t2 = moneMinus / (2 * a);
+
+        // Return the solutions as a list
         return List.of(t1, t2);
     }
 }
