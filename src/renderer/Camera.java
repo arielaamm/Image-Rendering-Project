@@ -14,20 +14,13 @@ public class Camera implements Cloneable{
      * The location of the camera
      */
     public static class Builder{
-        private static Camera camera;
+        private final Camera camera = new Camera();
 
         /**
-         * Create a new camera
-         * @param camera camera
-         */
-        public Builder(Camera camera) {
-            Builder.camera = camera;
-        }
-
-        /**
-         * Create a new camera
+         * The default constructor
          */
         public Builder() {}
+
 
         /**
          * Set the location of the camera
@@ -48,9 +41,9 @@ public class Camera implements Cloneable{
         public Builder setDirection(Vector Vto,Vector Vup){
             if (Vto.crossProduct(Vup).length() == 0)
                 throw new IllegalArgumentException("Vto and Vup are parallel");
-            camera.Vto = Vto.normalize();
-            camera.Vup = Vup.normalize();
-            camera.Vright = Vto.crossProduct(Vup).normalize();
+            camera.vTo = Vto.normalize();
+            camera.vUp = Vup.normalize();
+            camera.vRight = Vto.crossProduct(Vup).normalize();
             return this;
         }
 
@@ -61,6 +54,8 @@ public class Camera implements Cloneable{
          * @return this
          */
         public Builder setVpSize(double heightViewPlane, double widthViewPlane){
+            if (heightViewPlane < 0 || widthViewPlane < 0)
+                throw new IllegalArgumentException("The height and width of the view plane must be positive");
             camera.heightViewPlane = heightViewPlane;
             camera.widthViewPlane = widthViewPlane;
             return this;
@@ -72,37 +67,42 @@ public class Camera implements Cloneable{
          * @return this
          */
         public Builder setVpDistance(double distanceFromViewPlane){
+            if (distanceFromViewPlane < 0)
+                throw new IllegalArgumentException("The distance from the view plane must be positive");
             camera.distanceFromViewPlane = distanceFromViewPlane;
             return this;
         }
-        public Camera build() throws CloneNotSupportedException {
-            if(camera.location == null)
-                throw new MissingResourceException("Missing Resource",Camera.class.getSimpleName(),"location");
-            if(camera.Vto == null || camera.Vup == null)
-                throw new MissingResourceException("Missing Resource",Camera.class.getSimpleName(),"direction");
-            if(camera.heightViewPlane == 0.0 || camera.widthViewPlane == 0.0)
-                throw new MissingResourceException("Missing Resource",Camera.class.getSimpleName(),"vpSize");
-            if(camera.distanceFromViewPlane == 0.0)
-                throw new MissingResourceException("Missing Resource",Camera.class.getSimpleName(),"vpDistance");
 
-            if(camera.Vto.crossProduct(camera.Vup).length() == 0)
+        /**
+         * Build the camera
+         * @return Camera
+         * @throws CloneNotSupportedException
+         */
+        public Camera build() throws CloneNotSupportedException {
+            String missingResource = "Missing Resource";
+            if(camera.location == null)
+                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"location");
+            if(camera.vTo == null || camera.vUp == null)
+                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"direction");
+            if(camera.heightViewPlane == 0.0 || camera.widthViewPlane == 0.0)
+                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"vpSize");
+            if(camera.distanceFromViewPlane == 0.0)
+                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"vpDistance");
+
+            if(camera.vTo.crossProduct(camera.vUp).length() == 0)
                 throw new IllegalArgumentException("Vto and Vup are parallel");
             if(camera.heightViewPlane < 0.0 || camera.widthViewPlane < 0.0)
                 throw new IllegalArgumentException("Negative size");
             if(camera.distanceFromViewPlane < 0.0)
                 throw new IllegalArgumentException("Negative distance");
-            if (camera.heightViewPlane == 0.0 || camera.widthViewPlane == 0.0)
-                throw new IllegalArgumentException("Zero size");
-            if (camera.distanceFromViewPlane == 0.0)
-                throw new IllegalArgumentException("Zero distance");
-            return (Camera)camera.clone();
+            return (Camera) camera.clone();
         }
     }
 
     private Point location;
-    private Vector Vto;
-    private Vector Vright;
-    private Vector Vup;
+    private Vector vTo;
+    private Vector vRight;
+    private Vector vUp;
     private double heightViewPlane = 0.0;
     private double widthViewPlane = 0.0;
     private double distanceFromViewPlane = 0.0;
@@ -150,6 +150,18 @@ public class Camera implements Cloneable{
      * @return Ray
      */
     public Ray constructRay(int nX, int nY, int j, int i){
-        return new Ray(location, Vto);
+        Vector scale = vTo.scale(distanceFromViewPlane);
+        Point pC = location.add(scale);
+        double rY = heightViewPlane / nY;
+        double rX = widthViewPlane / nX;
+        double xJ = (j - ((nX - 1) / 2.0))* rX;
+        double yI = -(i - ((nY - 1) / 2.0)) * rY;
+        Point pIJ = pC;
+        if (xJ != 0)
+            pIJ = pIJ.add(vRight.scale(xJ));
+        else if (yI != 0)
+            pIJ = pIJ.add(vUp.scale(yI));
+        Vector Vij = pIJ.subtract(location);
+        return new Ray(location, Vij);
     }
 }

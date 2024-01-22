@@ -17,12 +17,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class IntegrationTest {
     private final Camera.Builder cameraBuilder = Camera.getBuilder()
             .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
-            .setVpDistance(1);
+            .setVpDistance(1).setVpSize(3, 3);
 
     List<Point> pointsIntersections;
 
     @Test
-    void testConstructRayWithShpere() throws CloneNotSupportedException {
+    void testConstructRayWithSphere() throws CloneNotSupportedException {
         //TC01: First test case
         cameraBuilder.setLocation(new Point(0,0,0));
         cameraBuilder.build();
@@ -36,7 +36,7 @@ class IntegrationTest {
         //TC03: Third test case
         cameraBuilder.setLocation(new Point(0,0,0.5));
         cameraBuilder.build();
-        assertEquals(10, getIntersections(new Sphere(2.5, new Point(0, 0, -2))).size());
+        assertEquals(10, getIntersections(new Sphere(2, new Point(0, 0, -2))).size());
 
         //TC04: Fourth test case
         cameraBuilder.setLocation(new Point(0,0,0.5));
@@ -46,7 +46,7 @@ class IntegrationTest {
         //TC05: Fifth test case
         cameraBuilder.setLocation(new Point(0,0,0.5));
         cameraBuilder.build();
-        assertEquals(0, getIntersections(new Sphere(4, new Point(0, 0, 1))).size());
+        assertEquals(0, getIntersections(new Sphere(0.5, new Point(0, 0, 1))).size());
     }
 
     @Test
@@ -78,11 +78,18 @@ class IntegrationTest {
         cameraBuilder.build();
         assertEquals(2, getIntersections(new Triangle(new Point(0,20, -2), new Point(-1,-1,-2), new Point(1,-1,2))).size());
     }
+
+    /**
+     * @param geometry
+     * @return List<Point> the list of intersections
+     * @throws CloneNotSupportedException
+     */
     private List<Point> getIntersections(Geometry geometry) throws CloneNotSupportedException {
         pointsIntersections = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 Ray ray = cameraBuilder.build().constructRay(3,3, j, i);
+                System.out.println("ray: " + ray + " i: " + i + " j: " + j);
                 pointsIntersections.addAll(geometry.findIntersections(ray));
             }
         }
