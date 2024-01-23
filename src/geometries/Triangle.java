@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Class Triangle is the basic class representing a triangle in Euclidean geometry
+ *
  */
 public class Triangle extends Polygon{
     /**
