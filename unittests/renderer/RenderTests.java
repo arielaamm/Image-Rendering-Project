@@ -9,6 +9,9 @@ import lighting.AmbientLight;
 import primitives.*;
 import scene.Scene;
 
+import java.io.File;
+import java.io.IOException;
+
 /** Test rendering a basic image
  * @author Dan */
 public class RenderTests {
@@ -57,6 +60,14 @@ public class RenderTests {
          .writeToImage();
    }
 
+   public void renderFromXmlFile() throws IOException {
+      XmlMapper mapper = new XmlMapper();
+
+      File file = new File("renderTestTwoColors.xml");
+      XmlMapper xmlMapper = new XmlMapper();
+      Scene value = xmlMapper.readValue(file, Scene.class);
+
+   }
 
 }
 
