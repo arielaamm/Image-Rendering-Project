@@ -1,5 +1,6 @@
 package primitives;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -40,6 +41,19 @@ public class Ray {
      */
     public double getT(Point p) {
         return (p.subtract(head)).dotProduct(direction);
+    }
+
+    public Point findClosestPoint(List<Point> list){
+        //TODO: implement test
+        Point closestPoint = list.getFirst();
+        double minDistance = Double.MAX_VALUE;
+        for (Point p : list) {
+            if (head.distance(p) < minDistance) {
+                minDistance = head.distance(p);
+                closestPoint = p;
+            }
+        }
+        return closestPoint;
     }
     /**
      * Overrides the equals() method to compare if two Ray objects are equal.

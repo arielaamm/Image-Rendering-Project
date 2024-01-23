@@ -80,7 +80,7 @@ public class Triangle extends Polygon{
         double w = (d00 * d21 - d01 * d20) / denom;
         double u = 1.0 - v - w;
 
-        if (v >= 0 && w >= 0 && u >= 0 && v <= 1 && w <= 1 && u <= 1) {
+        if (v > 0 && w > 0 && u > 0 && v < 1 && w < 1 && u < 1) {
             return List.of(intersectionPoint);
         } else {
             return null;            // Point is outside the triangle

@@ -3,17 +3,15 @@ package geometries;
 import org.junit.jupiter.api.Test;
 import primitives.*;
 
-import java.util.Comparator;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SphereTest {
     /* Unit tests for geometries.Sphere class */
     private final Point p100 = new Point(1, 0, 0);
-    Sphere normalSphere = new Sphere(1,new Point(0,0,0));
-    Sphere sphere = new Sphere(1d, p100);
+    Sphere normalSphere = new Sphere(new Point(0,0,0), 1);
+    Sphere sphere = new Sphere(p100, 1d);
     private final Point p001 = new Point(0, 0, 1);
     private final Vector v001 = new Vector(0, 0, 1);
 

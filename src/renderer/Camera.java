@@ -73,6 +73,16 @@ public class Camera implements Cloneable{
             return this;
         }
 
+        public Builder setImageWriter(ImageWriter imageWriter){
+            camera.imageWriter = imageWriter;
+            return this;
+        }
+
+        public Builder setRayTracer(RayTracerBase rayTracer){
+            camera.rayTracer = rayTracer;
+            return this;
+        }
+
         /**
          * Build the camera
          * @return Camera
@@ -88,6 +98,10 @@ public class Camera implements Cloneable{
                 throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"vpSize");
             if(camera.distanceFromViewPlane == 0.0)
                 throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"vpDistance");
+            if(camera.imageWriter == null)
+                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"imageWriter");
+            if (camera.rayTracer == null)
+                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"rayTracer");
 
             if(camera.vTo.crossProduct(camera.vUp).length() == 0)
                 throw new IllegalArgumentException("Vto and Vup are parallel");
@@ -110,6 +124,8 @@ public class Camera implements Cloneable{
     private double widthViewPlane = 0.0;
     private double distanceFromViewPlane = 0.0;
     private Point viewPlaneCenter;
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracer;
     private Camera(){}
 
     /**
@@ -164,5 +180,13 @@ public class Camera implements Cloneable{
             pIJ = pIJ.add(vUp.scale(yI));
         Vector Vij = pIJ.subtract(location);
         return new Ray(location, Vij);
+    }
+
+    public void renderImage(){
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Camera printGrip(){
+
     }
 }

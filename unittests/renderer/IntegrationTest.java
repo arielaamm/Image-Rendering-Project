@@ -26,27 +26,27 @@ class IntegrationTest {
         //TC01: First test case
         cameraBuilder.setLocation(new Point(0,0,0));
         cameraBuilder.build();
-        assertEquals(2,getIntersections(new Sphere(1, new Point(0, 0, -3))).size(),"Wrong number of intersections in case 1");
+        assertEquals(2,getIntersections(new Sphere(new Point(0, 0, -3), 1)).size(),"Wrong number of intersections in case 1");
 
         //TC02: Second test case
         cameraBuilder.setLocation(new Point(0,0,0.5));
         cameraBuilder.build();
-        assertEquals(18, getIntersections(new Sphere(2.5, new Point(0, 0, -2.5))).size(),"Wrong number of intersections in case 2");
+        assertEquals(18, getIntersections(new Sphere(new Point(0, 0, -2.5), 2.5)).size(),"Wrong number of intersections in case 2");
 
         //TC03: Third test case
         cameraBuilder.setLocation(new Point(0,0,0.5));
         cameraBuilder.build();
-        assertEquals(10, getIntersections(new Sphere(2, new Point(0, 0, -2))).size(),"Wrong number of intersections in case 3");
+        assertEquals(10, getIntersections(new Sphere(new Point(0, 0, -2), 2)).size(),"Wrong number of intersections in case 3");
 
         //TC04: Fourth test case
         cameraBuilder.setLocation(new Point(0,0,0.5));
         cameraBuilder.build();
-        assertEquals(9, getIntersections(new Sphere(4, new Point(0, 0, 0))).size(),"Wrong number of intersections in case 4");
+        assertEquals(9, getIntersections(new Sphere(new Point(0, 0, 0), 4)).size(),"Wrong number of intersections in case 4");
 
         //TC05: Fifth test case
         cameraBuilder.setLocation(new Point(0,0,0));
         cameraBuilder.build();
-        assertEquals(0, getIntersections(new Sphere(0.5, new Point(0, 0, 1))).size(),"Wrong number of intersections in case 5");
+        assertEquals(0, getIntersections(new Sphere(new Point(0, 0, 1), 0.5)).size(),"Wrong number of intersections in case 5");
     }
 
     @Test
