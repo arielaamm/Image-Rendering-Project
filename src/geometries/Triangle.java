@@ -5,7 +5,6 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.List;
-import static primitives.Util.isZero;
 
 /**
  * Class Triangle is the basic class representing a triangle in Euclidean geometry
@@ -53,7 +52,6 @@ public class Triangle extends Polygon{
     //Barycentric Coordinates
     public List<Point> findIntersections(Ray ray) {
         List <Point> intersectionList = plane.findIntersections(ray);
-        System.out.println(intersectionList);
         if(intersectionList == null)
             return null;
         Point intersectionPoint = intersectionList.getFirst();

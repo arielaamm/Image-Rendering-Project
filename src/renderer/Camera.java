@@ -95,6 +95,9 @@ public class Camera implements Cloneable{
                 throw new IllegalArgumentException("Negative size");
             if(camera.distanceFromViewPlane < 0.0)
                 throw new IllegalArgumentException("Negative distance");
+
+            camera.viewPlaneCenter = camera.location.add(camera.vTo.scale(camera.distanceFromViewPlane));
+
             return (Camera) camera.clone();
         }
     }
@@ -106,7 +109,7 @@ public class Camera implements Cloneable{
     private double heightViewPlane = 0.0;
     private double widthViewPlane = 0.0;
     private double distanceFromViewPlane = 0.0;
-
+    private Point viewPlaneCenter;
     private Camera(){}
 
     /**
@@ -150,13 +153,11 @@ public class Camera implements Cloneable{
      * @return Ray
      */
     public Ray constructRay(int nX, int nY, int j, int i){
-        Vector scale = vTo.scale(distanceFromViewPlane);
-        Point pC = location.add(scale);
         double rY = heightViewPlane / nY;
         double rX = widthViewPlane / nX;
         double xJ = (j - ((nX - 1) / 2.0))* rX;
         double yI = -(i - ((nY - 1) / 2.0)) * rY;
-        Point pIJ = pC;
+        Point pIJ = this.viewPlaneCenter;
         if (xJ != 0)
             pIJ = pIJ.add(vRight.scale(xJ));
         if (yI != 0)

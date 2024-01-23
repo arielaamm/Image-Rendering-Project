@@ -1,7 +1,6 @@
 package primitives;
 
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -111,30 +110,4 @@ public class Point {
      * @param r the radius of the quadratic equation
      * @return a list containing the solutions for t in the equation
      */
-    public static List<Double> getQuadraticEquationSolutions(Vector dir, Point P0, double r) {
-        // Coefficients of the quadratic equation
-        double a = dir.xyz.d1 * dir.xyz.d1 + dir.xyz.d2 * dir.xyz.d2; // CoefficientPowerTwo
-        double b = dir.xyz.d1 * P0.xyz.d1 * 2 + dir.xyz.d2 * P0.xyz.d2 * 2; // CoefficientPowerOne
-        double c = P0.xyz.d1 * P0.xyz.d1 + P0.xyz.d2 * P0.xyz.d2 - r * r; // CoefficientPowerZero
-
-        // Calculate the discriminant
-        double delta = b * b - 4 * a * c;
-
-        // If the discriminant is negative, there are no real solutions
-        if (delta < 0) {
-            return null;
-        }
-
-        // Calculate the square root of the discriminant
-        double sqrt = Math.sqrt(delta);
-
-        // Calculate the solutions for t
-        double monePlus = -b + sqrt;
-        double moneMinus = -b - sqrt;
-        double t1 = monePlus / (2 * a);
-        double t2 = moneMinus / (2 * a);
-
-        // Return the solutions as a list
-        return List.of(t1, t2);
-    }
 }

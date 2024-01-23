@@ -6,8 +6,6 @@ import primitives.Vector;
 
 import java.util.List;
 
-import static primitives.Point.getQuadraticEquationSolutions;
-
 /**
  * Class Tube is the basic class representing a tube in Euclidean geometry
  */
@@ -27,10 +25,7 @@ public class Tube extends RadialGeometry {
     }
     @Override
     public List<Point> findIntersections(Ray ray) {
-        List<Double> T1T2 = getQuadraticEquationSolutions(ray.direction, ray.head, radius);
-        if (T1T2 == null)
-            return null;
-        return List.of(ray.getPoint(T1T2.get(0)), ray.getPoint(T1T2.get(1)));
+        return null;
     }
     /**
      * @param p the point at which to calculate the normal vector

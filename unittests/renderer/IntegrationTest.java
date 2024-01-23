@@ -90,7 +90,6 @@ class IntegrationTest {
             for (int j = 0; j < 3; j++) {
                 Ray ray = cameraBuilder.build().constructRay(3,3, j, i);
                 List<Point> intersections = geometry.findIntersections(ray);
-                System.out.println("ray: " + ray + " i: " + i + " j: " + j);
                 if (intersections != null) {
                     pointsIntersections.addAll(intersections);
                 }
