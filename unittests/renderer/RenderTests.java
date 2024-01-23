@@ -17,7 +17,7 @@ public class RenderTests {
    /** Camera builder of the tests */
    private final Camera.Builder camera = Camera.getBuilder()
       .setRayTracer(new SimpleRayTracer(scene))
-      .setLocation(Point.ZERO).setDirection(new Point(0, 0, -1), Vector.Y)
+      .setLocation(Point.ZERO).setDirection(new Vector(0, 0, -1), Vector.Y)
       .setVpDistance(100)
       .setVpSize(500, 500);
 
@@ -47,10 +47,7 @@ public class RenderTests {
    /** Test for XML based scene - for bonus */
    @Test
    public void basicRenderXml() throws CloneNotSupportedException {
-      // enter XML file name and parse from XML file into scene object
-      // using the code you added in appropriate packages
-      // ...
-      // NB: unit tests is not the correct place to put XML parsing code
+
 
       camera
          .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
@@ -59,5 +56,7 @@ public class RenderTests {
          .printGrid(100, new Color(YELLOW))
          .writeToImage();
    }
+
+
 }
 

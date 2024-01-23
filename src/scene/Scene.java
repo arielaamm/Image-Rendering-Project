@@ -9,6 +9,7 @@ public class Scene {
     public String name;
     public Color background;
     public AmbientLight ambientLight = AmbientLight.NONE;
+
     public Geometries geometries = new Geometries();
 
     public Scene(String name) {

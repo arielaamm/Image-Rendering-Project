@@ -8,6 +8,6 @@ class ImageWriterTest {
 
     @Test
     public void writeToImage() {
-        ImageWriter imageWriter = new ImageWriter("test", 800, 500);
+
     }
 }

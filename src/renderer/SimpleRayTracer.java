@@ -26,6 +26,6 @@ public class SimpleRayTracer extends RayTracerBase {
     }
 
     private Color calcColor(Point closestPoint) {
-        return scene.background;
+        return scene.ambientLight.getIntensity();
     }
 }
