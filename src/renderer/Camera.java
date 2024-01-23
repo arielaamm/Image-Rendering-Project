@@ -1,5 +1,6 @@
 package renderer;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -182,11 +183,34 @@ public class Camera implements Cloneable{
         return new Ray(location, Vij);
     }
 
-    public void renderImage(){
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Camera renderImage(){
+        int nx = imageWriter.getNx();
+        int ny = imageWriter.getNy();
+        for (int i = 0; i < nx; i++) {
+            for (int j = 0; j < ny; j++) {
+                castRay(nx, ny, j, i);
+            }
+        }
+        return this;
     }
 
-    public Camera printGrip(){
+    public Camera printGrid(int nX, Color color){
+        int nx = imageWriter.getNx();
+        int ny = imageWriter.getNy();
+        for (int i = 0; i < nx; i++) {
+            for (int j = 0; j < ny; j++) {
+                imageWriter.writePixel(i * nX, j * nX, color);
+            }
+        }
+        return this;
+    }
 
+    private void castRay(int nx, int ny, int j, int i) {
+        Color color = rayTracer.traceRay(constructRay(nx, ny, j, i));
+        imageWriter.writePixel(i, j, color);
+    }
+
+    public void writeToImage(){
+        imageWriter.writeToImage();
     }
 }
