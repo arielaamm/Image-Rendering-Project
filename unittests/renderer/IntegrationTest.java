@@ -36,7 +36,7 @@ class IntegrationTest {
         //TC03: Third test case
         cameraBuilder.setLocation(new Point(0,0,0.5));
         cameraBuilder.build();
-        assertEquals(10, getIntersections(new Sphere(2.5, new Point(0, 0, -2))).size(),"Wrong number of intersections in case 3");
+        assertEquals(10, getIntersections(new Sphere(2, new Point(0, 0, -2))).size(),"Wrong number of intersections in case 3");
 
         //TC04: Fourth test case
         cameraBuilder.setLocation(new Point(0,0,0.5));
@@ -44,9 +44,9 @@ class IntegrationTest {
         assertEquals(9, getIntersections(new Sphere(4, new Point(0, 0, 0))).size(),"Wrong number of intersections in case 4");
 
         //TC05: Fifth test case
-        cameraBuilder.setLocation(new Point(0,0,0.5));
+        cameraBuilder.setLocation(new Point(0,0,0));
         cameraBuilder.build();
-        assertEquals(0, getIntersections(new Sphere(4, new Point(0, 0, 1))).size(),"Wrong number of intersections in case 5");
+        assertEquals(0, getIntersections(new Sphere(0.5, new Point(0, 0, 1))).size(),"Wrong number of intersections in case 5");
     }
 
     @Test
@@ -69,14 +69,14 @@ class IntegrationTest {
     @Test
     void testConstructRayWithTriangle() throws CloneNotSupportedException {
         //TC01: First test case
-        cameraBuilder.setLocation(new Point(0,0,1));
+        cameraBuilder.setLocation(new Point(0,0,0.5));
         cameraBuilder.build();
-        assertEquals(1, getIntersections(new Triangle(new Point(0, 1, -2), new Point(-1,-1,-2), new Point(1,-1,2))).size(), "Wrong number of intersections in case 1");
+        assertEquals(1, getIntersections(new Triangle(new Point(0, 1, -2), new Point(-1,-1,-2), new Point(1,-1,-2))).size(), "Wrong number of intersections in case 1");
 
         //TC02: Second test case
         cameraBuilder.setLocation(new Point(0,0,1));
         cameraBuilder.build();
-        assertEquals(2, getIntersections(new Triangle(new Point(0,20, -2), new Point(-1,-1,-2), new Point(1,-1,2))).size(), "Wrong number of intersections in case 2");
+        assertEquals(2, getIntersections(new Triangle(new Point(0,20, -2), new Point(-1,-1,-2), new Point(1,-1,-2))).size(), "Wrong number of intersections in case 2");
     }
 
     /**
@@ -89,8 +89,11 @@ class IntegrationTest {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 Ray ray = cameraBuilder.build().constructRay(3,3, j, i);
+                List<Point> intersections = geometry.findIntersections(ray);
                 System.out.println("ray: " + ray + " i: " + i + " j: " + j);
-                pointsIntersections.addAll(geometry.findIntersections(ray));
+                if (intersections != null) {
+                    pointsIntersections.addAll(intersections);
+                }
             }
         }
         return pointsIntersections;

@@ -159,7 +159,7 @@ public class Camera implements Cloneable{
         Point pIJ = pC;
         if (xJ != 0)
             pIJ = pIJ.add(vRight.scale(xJ));
-        else if (yI != 0)
+        if (yI != 0)
             pIJ = pIJ.add(vUp.scale(yI));
         Vector Vij = pIJ.subtract(location);
         return new Ray(location, Vij);
