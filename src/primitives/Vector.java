@@ -6,6 +6,10 @@ import static java.lang.Math.sqrt;
  * Class Vector is the basic class representing a vector of Euclidean geometry in Cartesian
  */
 public final class Vector extends Point {
+    public static final Vector Y = new Vector(0,1,0);
+    public static final Vector X = new Vector(1,0,0);
+    public static final Vector Z = new Vector(0,0,1);
+
     /**
      * Constructs a new Vector object with the given x, y, and z components.
      *
