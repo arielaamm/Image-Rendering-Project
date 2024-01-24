@@ -2,6 +2,7 @@ package renderer;
 
 import static java.awt.Color.*;
 
+import XMLTool.xmlTool;
 import org.junit.jupiter.api.Test;
 
 import geometries.*;
@@ -9,8 +10,6 @@ import lighting.AmbientLight;
 import primitives.*;
 import scene.Scene;
 
-import java.io.File;
-import java.io.IOException;
 
 /** Test rendering a basic image
  * @author Dan */
@@ -25,7 +24,8 @@ public class RenderTests {
       .setVpSize(500, 500);
 
    /** Produce a scene with basic 3D model and render it into a png image with a
-    * grid */
+    * grid
+    * @throws CloneNotSupportedException*/
    @Test
    public void renderTwoColorTest() throws CloneNotSupportedException {
       scene.geometries.add(new Sphere(new Point(0, 0, -100), 50d),
@@ -50,24 +50,15 @@ public class RenderTests {
    /** Test for XML based scene - for bonus */
    @Test
    public void basicRenderXml() throws CloneNotSupportedException {
-
-
-      camera
-         .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
-         .build()
-         .renderImage()
-         .printGrid(100, new Color(YELLOW))
-         .writeToImage();
-   }
-
-   public void renderFromXmlFile() throws IOException {
-      XmlMapper mapper = new XmlMapper();
-
-      File file = new File("renderTestTwoColors.xml");
-      XmlMapper xmlMapper = new XmlMapper();
-      Scene value = xmlMapper.readValue(file, Scene.class);
-
-   }
-
+       Scene temp = xmlTool.renderFromXmlFile("XmlRender/renderTestTwoColors.xml");
+       scene.setAmbientLight(temp.ambientLight).setBackground(temp.background).setGeometries(temp.geometries);
+        camera
+            .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
+            .build()
+            .renderImage()
+            .printGrid(100, new Color(YELLOW))
+            .writeToImage();
+    }
 }
+
 

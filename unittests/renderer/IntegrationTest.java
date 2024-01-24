@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import scene.Scene;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class IntegrationTest {
     private final Camera.Builder cameraBuilder = Camera.getBuilder()
             .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
-            .setVpDistance(1).setVpSize(3, 3);
+            .setVpDistance(1).setVpSize(3, 3)
+            .setImageWriter(new ImageWriter("Test", 3, 3))
+            .setRayTracer(new SimpleRayTracer(new Scene("Test")));
 
     List<Point> pointsIntersections;
 
