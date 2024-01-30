@@ -44,7 +44,9 @@ public class Ray {
     }
 
     public Point findClosestPoint(List<Point> list){
-        //TODO: implement test
+        if (list == null) {
+            return null;
+        }
         Point closestPoint = list.getFirst();
         double minDistance = Double.MAX_VALUE;
         for (Point p : list) {

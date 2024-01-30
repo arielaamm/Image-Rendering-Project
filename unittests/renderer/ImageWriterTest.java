@@ -13,23 +13,22 @@ import static java.awt.Color.YELLOW;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ImageWriterTest {
-    private final Scene          scene  = new Scene("Test scene");
-    /** Camera builder of the tests */
-    private final Camera.Builder camera = Camera.getBuilder()
-            .setRayTracer(new SimpleRayTracer(scene))
-            .setLocation(Point.ZERO).setDirection(new Vector(0, 0, -1), Vector.Y)
-            .setVpDistance(100)
-            .setVpSize(500, 500);
-
     @Test
-    public void writeToImage() throws CloneNotSupportedException {
-        scene.setAmbientLight(new AmbientLight(new Color(255, 191, 191), Double3.ONE))
-                .setBackground(new Color(YELLOW));
-        camera
-                .setImageWriter(new ImageWriter("empty image grid", 800, 500))
-                .build()
-                .renderImage()
-                .printGrid(50, new Color(RED))
-                .writeToImage();
+    public void writeToImageTemp() {
+        ImageWriter imageWriter = new ImageWriter("empty image grid", 800, 500);
+        int nx = imageWriter.getNx();
+        int ny = imageWriter.getNy();
+        for (int i = 0; i < nx; i++) {
+            for (int j = 0; j < ny; j++) {
+                imageWriter.writePixel(i, j, new Color(YELLOW));
+            }
+        }
+        for (int i = 0; i < nx; i++) {
+            for (int j = 0; j < ny; j++) {
+                if (i % 50 == 0 || j % 50 == 0)
+                    imageWriter.writePixel(i, j , new Color(RED));
+            }
+        }
+        imageWriter.writeToImage();
     }
 }

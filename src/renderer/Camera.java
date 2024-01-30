@@ -17,9 +17,6 @@ public class Camera implements Cloneable{
     public static class Builder{
         private final Camera camera = new Camera();
 
-        /**
-         * The default constructor
-         */
         public Builder() {}
 
 
@@ -74,11 +71,23 @@ public class Camera implements Cloneable{
             return this;
         }
 
+        /**
+         * Sets the image writer for the camera.
+         *
+         * @param  imageWriter  the image writer to be set
+         * @return              the updated Builder instance
+         */
         public Builder setImageWriter(ImageWriter imageWriter){
             camera.imageWriter = imageWriter;
             return this;
         }
 
+        /**
+         * Sets the ray tracer for the camera and returns the updated Builder.
+         *
+         * @param  rayTracer  the ray tracer to be set
+         * @return            the updated Builder
+         */
         public Builder setRayTracer(RayTracerBase rayTracer){
             camera.rayTracer = rayTracer;
             return this;
@@ -183,6 +192,11 @@ public class Camera implements Cloneable{
         return new Ray(location, Vij);
     }
 
+    /**
+     * Renders the image using ray casting.
+     *
+     * @return  the Camera object after rendering the image
+     */
     public Camera renderImage(){
         int nx = imageWriter.getNx();
         int ny = imageWriter.getNy();
@@ -194,11 +208,26 @@ public class Camera implements Cloneable{
         return this;
     }
 
-    private void castRay(int nx, int ny, int j, int i) {
-        Color color = rayTracer.traceRay(constructRay(nx, ny, j, i));
-        imageWriter.writePixel(j, i, color);
+    /**
+     * Casts a ray and writes the resulting color to the image.
+     *
+     * @param  nx  the x coordinate of the pixel
+     * @param  ny  the y coordinate of the pixel
+     * @param  i   the x coordinate of the image
+     * @param  j   the y coordinate of the image
+     */
+    private void castRay(int nx, int ny, int i, int j) {
+        Color color = rayTracer.traceRay(constructRay(nx, ny, i, j));
+        imageWriter.writePixel(i, j, color);
     }
 
+    /**
+     * Prints a grid on the imageWriter with a given color.
+     *
+     * @param  nX     the spacing of the grid lines
+     * @param  color  the color of the grid lines
+     * @return       the Camera object for method chaining
+     */
     public Camera printGrid(int nX, Color color){
         int nx = imageWriter.getNx();
         int ny = imageWriter.getNy();
@@ -211,6 +240,12 @@ public class Camera implements Cloneable{
         return this;
     }
 
+    /**
+     * Writes to the image.
+     *
+     * @param  -   No parameters
+     * @return  -   No return value
+     */
     public void writeToImage(){
         imageWriter.writeToImage();
     }

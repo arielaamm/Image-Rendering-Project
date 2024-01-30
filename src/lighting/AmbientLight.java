@@ -12,7 +12,10 @@ public class AmbientLight {
         this.intensity = iP.scale(kA);
     }
     private final Color intensity;
-    public final static AmbientLight NONE = new AmbientLight(Color.BLACK, 0);
+    /**
+     * The default constructor
+     */
+    public static final AmbientLight NONE = new AmbientLight(Color.BLACK, 0);
 
     public Color getIntensity() {
         return intensity;
