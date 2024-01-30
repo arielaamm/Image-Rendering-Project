@@ -43,6 +43,12 @@ public class Ray {
         return (p.subtract(head)).dotProduct(direction);
     }
 
+    /**
+     * Finds the closest Point in the given list.
+     *
+     * @param  list  the list of Points
+     * @return       the closest Point in the list
+     */
     public Point findClosestPoint(List<Point> list){
         if (list == null) {
             return null;
