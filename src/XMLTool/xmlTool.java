@@ -16,7 +16,16 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.List;
 
+/**
+ * A class to render a Scene object from an XML file.
+ */
 public class xmlTool {
+    /**
+     * Renders a Scene object from an XML file.
+     *
+     * @param  str   the path to the XML file
+     * @return       the Scene object rendered from the XML file
+     */
     public static Scene renderFromXmlFile(String str) {
         List<String> list = List.of("sphere","cylinder", "triangle", "plane","polygon","tube");
         try {
@@ -68,6 +77,14 @@ public class xmlTool {
             return null;
         }
     }
+
+    /**
+     * Creates a geometry object based on the type and element provided.
+     *
+     * @param  type    the type of geometry to create
+     * @param  element the element containing the necessary information
+     * @return         the created geometry object
+     */
     private static Geometry createGeometry(String type, Element element) {
         switch (type) {
             case "sphere":
@@ -113,10 +130,22 @@ public class xmlTool {
         return null;
     }
 
+    /**
+     * Converts a string to a double value.
+     *
+     * @param  radius  the string to be converted to a double
+     * @return        the double value parsed from the string
+     */
     private static double getDoubleFromString(String radius) {
         return Double.parseDouble(radius);
     }
 
+    /**
+     * Parse a string to create a Point object.
+     *
+     * @param  str   the string containing the coordinates
+     * @return      a Point object with the parsed coordinates
+     */
     private static Point getPointFromString(String str) {
         String[] centerArray = str.split("\\s+");
         double x = Double.parseDouble(centerArray[0]);
