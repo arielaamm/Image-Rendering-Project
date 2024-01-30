@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class xmlTool {
     /**
-     * Renders a Scene object from an XML file.
+     * Renders a scene object from an XML file.
      *
      * @param  str   the path to the XML file
      * @return       the Scene object rendered from the XML file
