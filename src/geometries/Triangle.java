@@ -24,7 +24,6 @@ public class Triangle extends Polygon{
      * @param ray the ray to find intersections with Triangle
      * @return the list of intersections
      */
-    @Override
 //    public List<Point> findIntersections(Ray ray) {
 //        List<Point> points = plane.findIntersections(ray);
 //        if(points == null)
@@ -51,7 +50,8 @@ public class Triangle extends Polygon{
 //    }
 
     //Barycentric Coordinates
-    public List<Point> findIntersections(Ray ray) {
+    @Override
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List <Point> intersectionList = plane.findIntersections(ray);
         if(intersectionList == null)
             return null;
@@ -81,7 +81,7 @@ public class Triangle extends Polygon{
         double u = 1.0 - v - w;
 
         if (v > 0 && w > 0 && u > 0 && v < 1 && w < 1 && u < 1) {
-            return List.of(intersectionPoint);
+            return List.of(new GeoPoint(this,intersectionPoint));
         } else {
             return null;            // Point is outside the triangle
 

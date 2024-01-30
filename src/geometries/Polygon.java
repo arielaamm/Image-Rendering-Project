@@ -84,7 +84,8 @@ public class Polygon extends Geometry {
       * @param ray The ray to find intersections with.
       * @return A list of points representing the intersections with the ray.
       */
-     public List<Point> findIntersections(Ray ray) {
+     @Override
+     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
           List <Point> intersectionList = plane.findIntersections(ray);
              if(intersectionList == null)
                  return null;
@@ -102,7 +103,7 @@ public class Polygon extends Geometry {
                  listNum.add(num);
              }
              if (listNum.stream().allMatch(value -> value > 0) || listNum.stream().allMatch(value -> value < 0)) {
-                 return List.of(intersectionPoint);
+                 return List.of(new GeoPoint(this,intersectionPoint));
              }
              return null;
      }

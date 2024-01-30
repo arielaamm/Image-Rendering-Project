@@ -10,6 +10,7 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import renderer.Camera;
 import scene.Scene;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -18,6 +19,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.MissingResourceException;
 
 /**
  * A class to render a Scene object from an XML file.
@@ -46,7 +48,7 @@ public class xmlTool {
             scene = new Scene(sceneElement.getAttribute("name"));
         }
         else {
-            scene = new Scene("defaultScene");
+            throw new MissingResourceException("Missing scene name", Camera.class.getSimpleName(),"name");
         }
 
         // Extracting background color attribute

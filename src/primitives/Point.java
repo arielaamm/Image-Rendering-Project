@@ -102,12 +102,4 @@ public class Point {
     public int hashCode() {
         return Objects.hash(xyz);
     }
-    /**
-     * Calculates the solutions for a quadratic equation in the form of ax^2 + bx + c = 0
-     *
-     * @param dir a vector representing the direction of the quadratic equation
-     * @param P0 a point on the quadratic equation
-     * @param r the radius of the quadratic equation
-     * @return a list containing the solutions for t in the equation
-     */
 }

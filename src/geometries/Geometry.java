@@ -1,14 +1,36 @@
 package geometries;
 
 
+import primitives.Color;
 import primitives.Vector;
 import primitives.Point;
 
 /**
  * Abstract class Geometry is the base class for all geometries in this project.
  */
-public abstract class Geometry implements Intersectable {
+public abstract class Geometry extends Intersectable {
 
+    protected Color emission = Color.BLACK;
+
+    /**
+     * Retrieves the emission color.
+     *
+     * @return         	the emission color
+     */
+    public Color getEmission() {
+        return emission;
+    }
+
+    /**
+     * Sets the emission color of the geometry.
+     *
+     * @param  emission  the color to set as the emission
+     * @return           the updated Geometry object
+     */
+    public Geometry setEmission(Color emission) {
+        this.emission = emission;
+        return this;
+    }
 
     /**
      * Returns the normal vector of the geometry at the given point.
