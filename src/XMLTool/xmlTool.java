@@ -5,6 +5,7 @@ import lighting.AmbientLight;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
@@ -13,7 +14,9 @@ import scene.Scene;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,56 +29,62 @@ public class xmlTool {
      * @param  str   the path to the XML file
      * @return       the Scene object rendered from the XML file
      */
-    public static Scene renderFromXmlFile(String str) {
+    public static Scene renderFromXmlFile(String str) throws ParserConfigurationException, IOException, SAXException {
         List<String> list = List.of("sphere","cylinder", "triangle", "plane","polygon","tube");
-        try {
-            File inputFile = new File(str);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
+        File inputFile = new File(str);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(inputFile);
+        doc.getDocumentElement().normalize();
 
-            Element sceneElement = doc.getDocumentElement();
+        Element sceneElement = doc.getDocumentElement();
 
-            // Extracting background color attribute
-            String backgroundColorStr = sceneElement.getAttribute("background-color");
+        // Creating the Scene object
+        Scene scene;
+        String nameColorStr = sceneElement.getAttribute("name");
+        if (!(nameColorStr == "" || nameColorStr.isEmpty())) {
+            scene = new Scene(sceneElement.getAttribute("name"));
+        }
+        else {
+            scene = new Scene("defaultScene");
+        }
+
+        // Extracting background color attribute
+        String backgroundColorStr = sceneElement.getAttribute("background-color");
+        if (!(backgroundColorStr == "" || backgroundColorStr.isEmpty())) {
             String[] bgColorArray = backgroundColorStr.split(" ");
             Color backgroundColor = new Color(Integer.parseInt(bgColorArray[0]),
                     Integer.parseInt(bgColorArray[1]),
                     Integer.parseInt(bgColorArray[2]));
-
-            // Creating the Scene object
-            Scene scene = new Scene("DefaultScene").setBackground(backgroundColor);
-
-            // Extracting ambient light
-            NodeList ambientLightList = sceneElement.getElementsByTagName("ambient-light");
-            if (ambientLightList.getLength() > 0) {
-                Element ambientLightElement = (Element) ambientLightList.item(0);
-                String ambientColorStr = ambientLightElement.getAttribute("color");
-                String[] ambientColorArray = ambientColorStr.split(" ");
-                Color ambientColor = new Color(Integer.parseInt(ambientColorArray[0]),
-                        Integer.parseInt(ambientColorArray[1]),
-                        Integer.parseInt(ambientColorArray[2]));
-                AmbientLight ambientLight = new AmbientLight(ambientColor,1);
-                scene.setAmbientLight(ambientLight);
-            }
-
-            Element geometriesElement = (Element) doc.getElementsByTagName("geometries").item(0);
-            for (String i : list)
-            {
-                NodeList geometriesList = geometriesElement.getElementsByTagName(i);
-                int length = geometriesList.getLength();
-                if (length == 0) continue;
-                for (int j = 0; j < length; j++) {
-                    Element item = (Element) geometriesList.item(j);
-                    scene.geometries.add(createGeometry(i, item));
-                }
-            }
-            return scene;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            scene.setBackground(backgroundColor);
         }
+
+        // Extracting ambient light
+        NodeList ambientLightList = sceneElement.getElementsByTagName("ambient-light");
+        if (ambientLightList.getLength() > 0) {
+            Element ambientLightElement = (Element) ambientLightList.item(0);
+            String ambientColorStr = ambientLightElement.getAttribute("color");
+            String[] ambientColorArray = ambientColorStr.split(" ");
+            Color ambientColor = new Color(Integer.parseInt(ambientColorArray[0]),
+                    Integer.parseInt(ambientColorArray[1]),
+                    Integer.parseInt(ambientColorArray[2]));
+            AmbientLight ambientLight = new AmbientLight(ambientColor,1);
+            scene.setAmbientLight(ambientLight);
+        }
+
+        // Extracting geometries
+        Element geometriesElement = (Element) doc.getElementsByTagName("geometries").item(0);
+        for (String i : list)
+        {
+            NodeList geometriesList = geometriesElement.getElementsByTagName(i);
+            int length = geometriesList.getLength();
+            if (length == 0) continue;
+            for (int j = 0; j < length; j++) {
+                Element item = (Element) geometriesList.item(j);
+                scene.geometries.add(createGeometry(i, item));
+            }
+        }
+        return scene;
     }
 
     /**

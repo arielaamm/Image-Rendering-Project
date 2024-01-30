@@ -7,8 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import geometries.*;
 import lighting.AmbientLight;
+import org.xml.sax.SAXException;
 import primitives.*;
 import scene.Scene;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 
 
 /** Test rendering a basic image
@@ -49,7 +53,7 @@ public class RenderTests {
 
    /** Test for XML based scene - for bonus */
    @Test
-   public void basicRenderXml() throws CloneNotSupportedException {
+   public void basicRenderXml() throws CloneNotSupportedException, ParserConfigurationException, IOException, SAXException {
        Scene temp = xmlTool.renderFromXmlFile("XmlRender/renderTestTwoColors.xml");
        scene.setAmbientLight(temp.ambientLight).setBackground(temp.background).setGeometries(temp.geometries);
         camera

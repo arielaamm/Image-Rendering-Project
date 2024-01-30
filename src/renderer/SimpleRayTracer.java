@@ -7,14 +7,21 @@ import scene.Scene;
 
 import java.util.List;
 
+/**
+ * This class is an extended class of a ray tracer.
+ */
 public class SimpleRayTracer extends RayTracerBase {
+    /**
+     * Construct
+     * @param scene
+     */
     public SimpleRayTracer(Scene scene) {
         super(scene);
     }
 
     /**
      * @param ray
-     * @return
+     * @return the color of the closest point
      */
     @Override
     public Color traceRay(Ray ray) {
@@ -25,6 +32,11 @@ public class SimpleRayTracer extends RayTracerBase {
         return calcColor(closestPoint);
     }
 
+    /**
+     *
+     * @param closestPoint
+     * @return the ambient light color
+     */
     private Color calcColor(Point closestPoint) {
         return scene.ambientLight.getIntensity();
     }
