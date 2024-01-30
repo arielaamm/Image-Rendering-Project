@@ -23,6 +23,12 @@ public class Sphere extends RadialGeometry{
         super(radius);
         this.center = center;
     }
+    /**
+     * Finds the intersections of a given ray with the geometry of the object.
+     *
+     * @param  ray  the ray to find intersections with
+     * @return      a list of GeoPoint objects representing the intersections, or null if there are no intersections
+     */
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         double d;

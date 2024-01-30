@@ -24,31 +24,6 @@ public class Triangle extends Polygon{
      * @param ray the ray to find intersections with Triangle
      * @return the list of intersections
      */
-//    public List<Point> findIntersections(Ray ray) {
-//        List<Point> points = plane.findIntersections(ray);
-//        if(points == null)
-//            return null;
-//        Vector v1 = vertices.get(0).subtract(ray.head);
-//        Vector v2 = vertices.get(1).subtract(ray.head);
-//        Vector v3 = vertices.get(2).subtract(ray.head);
-//        Vector n1 = v1.crossProduct(v2).normalize();
-//        Vector n2 = v2.crossProduct(v3).normalize();
-//        Vector n3 = v3.crossProduct(v1).normalize();
-//        double number = n1.dotProduct(ray.direction);
-//        double number1 = n2.dotProduct(ray.direction);
-//        double number2 = n3.dotProduct(ray.direction);
-//        if (isZero(number) || isZero(number1) || isZero(number2)) {
-//            return null;
-//        }
-//        else {
-//            if (number < 0 && number1 < 0 && number2 < 0)
-//                return points;
-//            else if (number > 0 && number1 > 0 && number2 > 0)
-//                return points;
-//        }
-//        return null;
-//    }
-
     //Barycentric Coordinates
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {

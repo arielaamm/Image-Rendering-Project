@@ -62,6 +62,12 @@ public class Plane extends Geometry{
         return this.normal;
     }
 
+    /**
+     * Finds the intersections of a given ray with the geometry represented by the class.
+     *
+     * @param  ray  the ray to find intersections with
+     * @return      a list of GeoPoint objects representing the intersections, or null if no intersections found
+     */
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         double numerator = normal.dotProduct(q.subtract(ray.head));

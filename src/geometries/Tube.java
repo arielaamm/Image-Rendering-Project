@@ -23,6 +23,12 @@ public class Tube extends RadialGeometry {
         super(radius);
         this.axis = axis;
     }
+    /**
+     * Find intersections of a ray with geo points.
+     *
+     * @param  ray   the ray to find intersections with
+     * @return      a list of geo points representing the intersections
+     */
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         return null;
