@@ -46,7 +46,7 @@ public class LightsTests {
    private static final Double3 KS3                     = new Double3(0.2, 0.4, 0.3);
 
    /** Material for some of the geometries in the tests */
-   private final Material       material                = new Material().setKd(KD3).setKd(KS3).setnShininess(SHININESS);
+   private final Material       material                = new Material().setKd(KD3).setKs(KS3).setnShininess(SHININESS);
    /** Light color for tests with triangles */
    private final Color          trianglesLightColor     = new Color(800, 500, 250);
    /** Light color for tests with sphere */
@@ -166,31 +166,30 @@ public class LightsTests {
          .writeToImage();
    }
 
-//   /** Produce a picture of a sphere lighted by a narrow spotlight */
-//   @Test
-//   public void sphereSpotSharp() throws CloneNotSupportedException {
-//      scene1.geometries.add(sphere);
-//      scene1.lights
-//         .add(new SpotLight(sphereLightColor, sphereLightPosition, new Vector(1, 1, -0.5))
-//            .setKl(0.001).setKq(0.00004).setNarrowBeam(10));
-//
-//      camera1.setImageWriter(new ImageWriter("lightSphereSpotSharp", 500, 500))
-//         .build()
-//         .renderImage()
-//         .writeToImage();
-//   }
-//
-//   /** Produce a picture of two triangles lighted by a narrow spotlight */
-//   @Test
-//   public void trianglesSpotSharp() throws CloneNotSupportedException {
-//      scene2.geometries.add(triangle1, triangle2);
-//      scene2.lights.add(new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection)
-//         .setKl(0.001).setKq(0.00004).setNarrowBeam(10));
-//
-//      camera2.setImageWriter(new ImageWriter("lightTrianglesSpotSharp", 500, 500))
-//         .build()
-//         .renderImage()
-//         .writeToImage();
-//   }
+   /** Produce a picture of a sphere lighted by a narrow spotlight */
+   @Test
+   public void sphereSpotSharp() throws CloneNotSupportedException {
+      scene1.geometries.add(sphere);
+      scene1.lights
+         .add(new SpotLight(sphereLightColor, sphereLightPosition, new Vector(1, 1, -0.5)).setNarrowBeam(10).setKl(0.001).setKq(0.00004));
+
+      camera1.setImageWriter(new ImageWriter("lightSphereSpotSharp", 500, 500))
+         .build()
+         .renderImage()
+         .writeToImage();
+   }
+
+   /** Produce a picture of two triangles lighted by a narrow spotlight */
+   @Test
+   public void trianglesSpotSharp() throws CloneNotSupportedException {
+      scene2.geometries.add(triangle1, triangle2);
+      scene2.lights.add(new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection).setNarrowBeam(10)
+         .setKl(0.001).setKq(0.00004));
+
+      camera2.setImageWriter(new ImageWriter("lightTrianglesSpotSharp", 500, 500))
+         .build()
+         .renderImage()
+         .writeToImage();
+   }
 
 }

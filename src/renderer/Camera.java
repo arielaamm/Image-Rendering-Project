@@ -202,6 +202,9 @@ public class Camera implements Cloneable{
         int ny = imageWriter.getNy();
         for (int i = 0; i < nx; i++) {
             for (int j = 0; j < ny; j++) {
+                if(i == 226 && j == 326) {
+                    castRay(nx, ny, i, j);
+                }
                 castRay(nx, ny, i, j);
             }
         }
@@ -217,7 +220,7 @@ public class Camera implements Cloneable{
      * @param  j   the y coordinate of the image
      */
     private void castRay(int nx, int ny, int i, int j) {
-        imageWriter.writePixel(i, j, rayTracer.traceRay(constructRay(nx, ny, i, j)));
+        imageWriter.writePixel(j, i, rayTracer.traceRay(constructRay(nx, ny, j, i)));
     }
 
     /**

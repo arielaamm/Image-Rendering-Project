@@ -5,12 +5,18 @@ import primitives.Point;
 import primitives.Vector;
 
 import static java.lang.Math.max;
+import static primitives.Util.isZero;
 
+/**
+ * SpotLight class represents a light source in the scene.
+ */
 public class SpotLight extends PointLight{
 	/**
 	 * @param intensity the intensity color
 	 */
 	private Vector direction;
+
+	private double narrowBeam = 1d;
 
 	/**
 	 * Constructor of the class
@@ -20,40 +26,17 @@ public class SpotLight extends PointLight{
 	 */
 	public SpotLight(Color intensity, Point position, Vector direction) {
 		super(intensity, position);
-		this.direction = direction;
+		this.direction = direction.normalize();
 	}
-
 	/**
-	 * Sets the constant attenuation factor for the point light.
+	 * Set the narrow beam value.
 	 *
-	 * @param kC the constant attenuation factor to set
-	 * @return the updated PointLight object
+	 * @param  i  the value to set for the narrow beam
+	 * @return    the updated LightSource object
 	 */
-	@Override
-	public SpotLight setKc(double kC) {
-		return (SpotLight) super.setKc(kC);
-	}
-
-	/**
-	 * Set the attenuation factor for light intensity.
-	 *
-	 * @param kL the attenuation factor to set
-	 * @return the updated PointLight object
-	 */
-	@Override
-	public SpotLight setKl(double kL) {
-		return (SpotLight)super.setKl(kL);
-	}
-
-	/**
-	 * Set the quadratic attenuation factor for the point light.
-	 *
-	 * @param kQ the new quadratic attenuation factor
-	 * @return the updated PointLight object
-	 */
-	@Override
-	public SpotLight setKq(double kQ) {
-		return (SpotLight)super.setKq(kQ);
+	public SpotLight setNarrowBeam(int i) {
+		this.narrowBeam = i;
+		return this;
 	}
 
 	/**
@@ -64,17 +47,15 @@ public class SpotLight extends PointLight{
 	 */
 	@Override
 	public Color getIntensity(Point p) {
-		return super.getIntensity(p).scale(max(0, direction.dotProduct(getL(p))));
+		double projection = this.direction.dotProduct(getL(p));
+		if (isZero(projection)) {
+			return Color.BLACK;
+		}
+		double factor = max(0, projection);
+		factor = Math.pow(factor, narrowBeam);
+
+		return super.getIntensity(p).scale(factor);
 	}
 
-	/**
-	 * Retrieves the vector from the specified point.
-	 *
-	 * @param p the point from which to retrieve the vector
-	 * @return the vector retrieved from the specified point
-	 */
-	@Override
-	public Vector getL(Point p) {
-		return super.getL(p);
-	}
+
 }
