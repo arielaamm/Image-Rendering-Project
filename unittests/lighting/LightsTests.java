@@ -191,5 +191,36 @@ public class LightsTests {
          .renderImage()
          .writeToImage();
    }
+   @Test
+   public void sphereMultipleLight() throws CloneNotSupportedException {
+      scene1.geometries.add(sphere);
+      scene1.lights.add(new DirectionalLight(sphereLightColor.add(new Color(34,3,200))
+              , sphereLightDirection.add(new Vector(-5, -5, -5))));
+      scene1.lights.add(new PointLight(sphereLightColor.add(new Color(78 ,15,200))
+              , sphereLightPosition.add(new Point(10, 50, -30))));
+      scene1.lights.add(new SpotLight(sphereLightColor.add(new Color(234,35,200))
+              , sphereLightPosition.add(new Point(-40, 78,45 )), sphereLightDirection.add(new Vector(-4,-3,1)))
+              .setKl(0.001).setKq(0.0001));
 
+      camera1.setImageWriter(new ImageWriter("sphereMultipleLight", 500, 500))
+              .build()
+              .renderImage()
+              .writeToImage();
+   }
+   @Test
+   public void trianglesMultipleLight() throws CloneNotSupportedException {
+      scene2.geometries.add(triangle1, triangle2);
+      scene2.lights.add(new DirectionalLight(sphereLightColor.add(new Color(34,3,200))
+              , sphereLightDirection.add(new Vector(-5, -5, -5))));
+      scene2.lights.add(new PointLight(sphereLightColor.add(new Color(78 ,15,200))
+              , sphereLightPosition.add(new Point(10, 50, -30))));
+      scene2.lights.add(new SpotLight(sphereLightColor.add(new Color(234,35,200))
+              , sphereLightPosition.add(new Point(-40, 78,45 )), sphereLightDirection.add(new Vector(-4,-3,1)))
+              .setKl(0.001).setKq(0.0004));
+
+      camera2.setImageWriter(new ImageWriter("trianglesMultipleLight", 500, 500))
+              .build()
+              .renderImage()
+              .writeToImage();
+   }
 }
