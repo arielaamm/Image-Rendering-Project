@@ -4,7 +4,8 @@ package primitives;
  * Material class represents the material of a shape in the scene.
  */
 public class Material {
-	public Double3 kD = Double3.ZERO,kS = Double3.ZERO;
+	public Double3 kD = Double3.ZERO;
+	public Double3 kS = Double3.ZERO;
 	public int nShininess = 1;
 
 	/**
