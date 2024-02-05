@@ -25,7 +25,7 @@ class IntegrationTest {
     List<Point> pointsIntersections;
 
     @Test
-    void testConstructRayWithSphere() throws CloneNotSupportedException {
+    void testConstructRayWithSphere()  {
         //TC01: First test case
         cameraBuilder.setLocation(new Point(0,0,0));
         cameraBuilder.build();
@@ -53,7 +53,7 @@ class IntegrationTest {
     }
 
     @Test
-    void testConstructRayWithPlane() throws CloneNotSupportedException {
+    void testConstructRayWithPlane() {
         //TC01: First test case
         cameraBuilder.setLocation(new Point(0,0,1));
         cameraBuilder.build();
@@ -70,7 +70,7 @@ class IntegrationTest {
         assertEquals(6, getIntersections(new Plane(new Point(0, 0, -4), new Point(-3,0,0), new Point(-3,2,0))).size(), "Wrong number of intersections in case 3");
     }
     @Test
-    void testConstructRayWithTriangle() throws CloneNotSupportedException {
+    void testConstructRayWithTriangle() {
         //TC01: First test case
         cameraBuilder.setLocation(new Point(0,0,0.5));
         cameraBuilder.build();
@@ -87,7 +87,7 @@ class IntegrationTest {
      * @return List<Point> the list of intersections
      * @throws CloneNotSupportedException
      */
-    private List<Point> getIntersections(Geometry geometry) throws CloneNotSupportedException {
+    private List<Point> getIntersections(Geometry geometry) {
         pointsIntersections = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {

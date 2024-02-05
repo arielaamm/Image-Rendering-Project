@@ -13,10 +13,17 @@ import java.util.List;
  * This class is an extended class of a ray tracer.
  */
 public class SimpleRayTracer extends RayTracerBase {
+
+    /**
+     * The delta constant
+     */
+    private static final double DELTA = 0.1;
+
     /**
      * Construct
      * @param scene
      */
+
     public SimpleRayTracer(Scene scene) {
         super(scene);
     }
@@ -33,14 +40,37 @@ public class SimpleRayTracer extends RayTracerBase {
         return calcColor(ray.findClosestGeoPoint(intersections),ray);
     }
 
+    private boolean unshaded(GeoPoint gp , Vector l,LightSource lightSource,Vector n) {
+        Vector lightDirection = l.scale(-1);
+        Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+        Point point = gp.point.add(delta);
+        Ray lightRay = new Ray(point, lightDirection);
+        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
+        if (intersections != null)
+            for (GeoPoint geoPoint : intersections)
+                if (geoPoint.point.distance(gp.point) < lightSource.getDistance(gp.point))
+                    return false;
+        return true;
+    }
+
     /**
+     * Calculate the color for a given point and ray.
      *
-     * @param point - GoePoint
-     * @return the ambient light color
+     * @param  point  the geographic point
+     * @param  ray    the ray
+     * @return       the calculated color
      */
     private Color calcColor(GeoPoint point, Ray ray) {
         return calcLocalEffects(point, ray).add(super.scene.ambientLight.getIntensity());
     }
+
+    /**
+     * Calculate local effects for a given GeoPoint and Ray.
+     *
+     * @param  geoPoint  the geometric point
+     * @param  ray       the ray
+     * @return           the color representing the local effects
+     */
     private Color calcLocalEffects(GeoPoint geoPoint, Ray ray) {
         Color color = geoPoint.geometry.getEmission();
         Vector v = ray.direction;
@@ -52,13 +82,13 @@ public class SimpleRayTracer extends RayTracerBase {
         for (LightSource lightSource : scene.lights) {
             Vector l = lightSource.getL(geoPoint.point);
             double nl = alignZero(n.dotProduct(l));
-            if (nl * nv > 0) {
-                Color iL = lightSource.getIntensity(geoPoint.point);
-                Color calcDiffusive = calcDiffusive(material, nl,iL);
-                Color calcSpecular = calcSpecular(material, n, l, nl, v, iL);
-                color = color.add(calcDiffusive, calcSpecular);
-            }
+            if (unshaded(geoPoint, l,lightSource,n) && (nl * nv > 0)) {
+                    Color iL = lightSource.getIntensity(geoPoint.point);
+                    Color calcDiffusive = calcDiffusive(material, nl, iL);
+                    Color calcSpecular = calcSpecular(material, n, l, nl, v, iL);
+                    color = color.add(calcDiffusive, calcSpecular);
 
+            }
         }
         return color;
     }

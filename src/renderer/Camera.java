@@ -11,10 +11,12 @@ import java.util.MissingResourceException;
  * The Camera class represents a camera in the scene.
  */
 public class Camera implements Cloneable{
-    /**
+
+
+	/**
      * The location of the camera
      */
-    public static class Builder{
+    public static class Builder {
         private final Camera camera = new Camera();
 
         public Builder() {}
@@ -96,9 +98,8 @@ public class Camera implements Cloneable{
         /**
          * Build the camera
          * @return Camera
-         * @throws CloneNotSupportedException
          */
-        public Camera build() throws CloneNotSupportedException {
+        public Camera build() {
             String missingResource = "Missing Resource";
             if(camera.location == null)
                 throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"location");
@@ -122,7 +123,7 @@ public class Camera implements Cloneable{
 
             camera.viewPlaneCenter = camera.location.add(camera.vTo.scale(camera.distanceFromViewPlane));
 
-            return (Camera) camera.clone();
+            return camera.clone();
         }
     }
 
@@ -250,5 +251,23 @@ public class Camera implements Cloneable{
      */
     public void writeToImage(){
         imageWriter.writeToImage();
+    }
+    @Override
+    public Camera clone() {
+        try {
+                Camera clonedCamera = (Camera) super.clone();
+                // Deep clone mutable fields
+                clonedCamera.location = this.location != null ? this.location : null;
+                clonedCamera.vTo = this.vTo != null ? this.vTo : null;
+                clonedCamera.vRight = this.vRight != null ? this.vRight : null;
+                clonedCamera.vUp = this.vUp != null ? this.vUp : null;
+                clonedCamera.viewPlaneCenter = this.viewPlaneCenter != null ? this.viewPlaneCenter : null;
+                clonedCamera.imageWriter = this.imageWriter != null ? this.imageWriter : null;
+                clonedCamera.rayTracer = this.rayTracer != null ? this.rayTracer : null;
+
+                return clonedCamera;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

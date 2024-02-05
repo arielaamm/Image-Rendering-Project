@@ -34,7 +34,7 @@ public class RenderTests {
      * grid
      */
     @Test
-    public void renderTwoColorTest() throws CloneNotSupportedException {
+    public void renderTwoColorTest() {
         scene.geometries.add(new Sphere(new Point(0, 0, -100), 50d),
                 new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
                 // left
@@ -60,7 +60,7 @@ public class RenderTests {
      * bodies and render it into a png image with a grid
      */
     @Test
-    public void renderMultiColorTest() throws CloneNotSupportedException {
+    public void renderMultiColorTest() {
         scene.geometries.add( // center
                 new Sphere(new Point(0, 0, -100), 50),
                 // up left

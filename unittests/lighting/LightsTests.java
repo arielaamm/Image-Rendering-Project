@@ -92,7 +92,7 @@ public class LightsTests {
 
    /** Produce a picture of a sphere lighted by a directional light */
    @Test
-   public void sphereDirectional() throws CloneNotSupportedException {
+   public void sphereDirectional() {
       scene1.geometries.add(sphere);
       scene1.lights.add(new DirectionalLight(sphereLightColor, sphereLightDirection));
 
@@ -104,7 +104,7 @@ public class LightsTests {
 
    /** Produce a picture of a sphere lighted by a point light */
    @Test
-   public void spherePoint() throws CloneNotSupportedException {
+   public void spherePoint() {
       scene1.geometries.add(sphere);
       scene1.lights.add(new PointLight(sphereLightColor, sphereLightPosition)
          .setKl(0.001).setKq(0.0002));
@@ -117,7 +117,7 @@ public class LightsTests {
 
    /** Produce a picture of a sphere lighted by a spotlight */
    @Test
-   public void sphereSpot() throws CloneNotSupportedException {
+   public void sphereSpot() {
       scene1.geometries.add(sphere);
       scene1.lights.add(new SpotLight(sphereLightColor, sphereLightPosition, sphereLightDirection)
          .setKl(0.001).setKq(0.0001));
@@ -130,7 +130,7 @@ public class LightsTests {
 
    /** Produce a picture of two triangles lighted by a directional light */
    @Test
-   public void trianglesDirectional() throws CloneNotSupportedException {
+   public void trianglesDirectional() {
       scene2.geometries.add(triangle1, triangle2);
       scene2.lights.add(new DirectionalLight(trianglesLightColor, trianglesLightDirection));
 
@@ -142,7 +142,7 @@ public class LightsTests {
 
    /** Produce a picture of two triangles lighted by a point light */
    @Test
-   public void trianglesPoint() throws CloneNotSupportedException {
+   public void trianglesPoint() {
       scene2.geometries.add(triangle1, triangle2);
       scene2.lights.add(new PointLight(trianglesLightColor, trianglesLightPosition)
          .setKl(0.001).setKq(0.0002));
@@ -155,7 +155,7 @@ public class LightsTests {
 
    /** Produce a picture of two triangles lighted by a spotlight */
    @Test
-   public void trianglesSpot() throws CloneNotSupportedException {
+   public void trianglesSpot() {
       scene2.geometries.add(triangle1, triangle2);
       scene2.lights.add(new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection)
          .setKl(0.001).setKq(0.0001));
@@ -168,7 +168,7 @@ public class LightsTests {
 
    /** Produce a picture of a sphere lighted by a narrow spotlight */
    @Test
-   public void sphereSpotSharp() throws CloneNotSupportedException {
+   public void sphereSpotSharp() {
       scene1.geometries.add(sphere);
       scene1.lights
          .add(new SpotLight(sphereLightColor, sphereLightPosition, new Vector(1, 1, -0.5)).setNarrowBeam(10).setKl(0.001).setKq(0.00004));
@@ -181,7 +181,7 @@ public class LightsTests {
 
    /** Produce a picture of two triangles lighted by a narrow spotlight */
    @Test
-   public void trianglesSpotSharp() throws CloneNotSupportedException {
+   public void trianglesSpotSharp() {
       scene2.geometries.add(triangle1, triangle2);
       scene2.lights.add(new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection).setNarrowBeam(10)
          .setKl(0.001).setKq(0.00004));
@@ -192,7 +192,7 @@ public class LightsTests {
          .writeToImage();
    }
    @Test
-   public void sphereMultipleLight() throws CloneNotSupportedException {
+   public void sphereMultipleLight() {
       scene1.geometries.add(sphere);
       scene1.lights.add(new DirectionalLight(new Color(204, 500, 84),new Vector(65,70,50)));
       scene1.lights.add(new PointLight(new Color(230, 400, 85),new Point(80,-100,46.19832)));
@@ -204,7 +204,7 @@ public class LightsTests {
               .writeToImage();
    }
    @Test
-   public void trianglesMultipleLight() throws CloneNotSupportedException {
+   public void trianglesMultipleLight() {
       scene2.geometries.add(triangle1, triangle2);
       scene2.lights.add(new DirectionalLight(new Color(100, 384, 805),new Vector(-65,-70,-50)));
       scene2.lights.add(new PointLight(new Color(788, 7, 305),new Point(80,-100,-46.19832)));
