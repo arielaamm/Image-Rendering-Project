@@ -194,13 +194,9 @@ public class LightsTests {
    @Test
    public void sphereMultipleLight() throws CloneNotSupportedException {
       scene1.geometries.add(sphere);
-      scene1.lights.add(new DirectionalLight(sphereLightColor.add(new Color(34,3,200))
-              , sphereLightDirection.add(new Vector(-5, -5, -5))));
-      scene1.lights.add(new PointLight(sphereLightColor.add(new Color(78 ,15,200))
-              , sphereLightPosition.add(new Point(10, 50, -30))));
-      scene1.lights.add(new SpotLight(sphereLightColor.add(new Color(234,35,200))
-              , sphereLightPosition.add(new Point(-40, 78,45 )), sphereLightDirection.add(new Vector(-4,-3,1)))
-              .setKl(0.001).setKq(0.0001));
+      scene1.lights.add(new DirectionalLight(new Color(204, 500, 84),new Vector(65,70,50)));
+      scene1.lights.add(new PointLight(new Color(230, 400, 85),new Point(80,-100,46.19832)));
+      scene1.lights.add(new SpotLight(new Color(232, 800, 128), new Point(-10.20919,73.13427,-20),new Vector(-7,-45,61)));
 
       camera1.setImageWriter(new ImageWriter("sphereMultipleLight", 500, 500))
               .build()
@@ -210,14 +206,9 @@ public class LightsTests {
    @Test
    public void trianglesMultipleLight() throws CloneNotSupportedException {
       scene2.geometries.add(triangle1, triangle2);
-      scene2.lights.add(new DirectionalLight(sphereLightColor.add(new Color(34,3,200))
-              , sphereLightDirection.add(new Vector(-5, -5, -5))));
-      scene2.lights.add(new PointLight(sphereLightColor.add(new Color(78 ,15,200))
-              , sphereLightPosition.add(new Point(10, 50, -30))));
-      scene2.lights.add(new SpotLight(sphereLightColor.add(new Color(234,35,200))
-              , sphereLightPosition.add(new Point(-40, 78,45 )), sphereLightDirection.add(new Vector(-4,-3,1)))
-              .setKl(0.001).setKq(0.0004));
-
+      scene2.lights.add(new DirectionalLight(new Color(100, 384, 805),new Vector(-65,-70,-50)));
+      scene2.lights.add(new PointLight(new Color(788, 7, 305),new Point(80,-100,-46.19832)));
+      scene2.lights.add(new SpotLight(new Color(420, 400, 108), new Point(-10.20919,-73.13427,-20),new Vector(-7,45,61)));
       camera2.setImageWriter(new ImageWriter("trianglesMultipleLight", 500, 500))
               .build()
               .renderImage()
