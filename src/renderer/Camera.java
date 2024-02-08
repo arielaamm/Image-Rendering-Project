@@ -13,7 +13,7 @@ import java.util.MissingResourceException;
 public class Camera implements Cloneable{
 
 
-	/**
+    /**
      * The location of the camera
      */
     public static class Builder {
@@ -255,17 +255,17 @@ public class Camera implements Cloneable{
     @Override
     public Camera clone() {
         try {
-                Camera clonedCamera = (Camera) super.clone();
-                // Deep clone mutable fields
-                clonedCamera.location = this.location != null ? this.location : null;
-                clonedCamera.vTo = this.vTo != null ? this.vTo : null;
-                clonedCamera.vRight = this.vRight != null ? this.vRight : null;
-                clonedCamera.vUp = this.vUp != null ? this.vUp : null;
-                clonedCamera.viewPlaneCenter = this.viewPlaneCenter != null ? this.viewPlaneCenter : null;
-                clonedCamera.imageWriter = this.imageWriter != null ? this.imageWriter : null;
-                clonedCamera.rayTracer = this.rayTracer != null ? this.rayTracer : null;
+            Camera clonedCamera = (Camera) super.clone();
+            // Deep clone mutable fields
+            clonedCamera.location = this.location != null ? this.location : null;
+            clonedCamera.vTo = this.vTo != null ? this.vTo : null;
+            clonedCamera.vRight = this.vRight != null ? this.vRight : null;
+            clonedCamera.vUp = this.vUp != null ? this.vUp : null;
+            clonedCamera.viewPlaneCenter = this.viewPlaneCenter != null ? this.viewPlaneCenter : null;
+            clonedCamera.imageWriter = this.imageWriter != null ? this.imageWriter : null;
+            clonedCamera.rayTracer = this.rayTracer != null ? this.rayTracer : null;
 
-                return clonedCamera;
+            return clonedCamera;
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }

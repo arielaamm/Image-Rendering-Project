@@ -1,6 +1,7 @@
 package primitives;
 
 import static geometries.Intersectable.GeoPoint;
+import static primitives.Util.alignZero;
 
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +10,10 @@ import java.util.Objects;
  * Class Ray is the basic class representing a ray in 3D space.
  */
 public class Ray {
+    /**
+     * The delta constant
+     */
+    private static final double DELTA = 0.1;
     /**
      * head point of the ray
      */
@@ -25,6 +30,22 @@ public class Ray {
     public Ray(Point head,Vector direction) {
         this.head = head;
         this.direction = direction.normalize();
+    }
+
+    /**
+     * Constructor for ray deflected by DELTA
+     *
+     * @param p origin
+     * @param n   normal vector
+     * @param dir direction
+     */
+    public Ray(Point p, Vector n, Vector dir) {
+        this.direction = dir.normalize();
+        double nv = n.dotProduct(this.direction);
+        Vector delta  =n.scale(DELTA);
+        if (nv < 0)
+            delta = delta.scale(-1);
+        this.head = p.add(delta);
     }
 
     /**
