@@ -115,5 +115,15 @@ public class PolygonTests {
       assertNull(polygon.findIntersections(new Ray(new Point(1,-1,0),new Vector(-1,0,0))), "ERROR: findIntersections does not return null when the ray starts inside the polygon");
       // TC14: Test with a ray that intersects the polygon at an edge from the inner side
       assertNull(polygon.findIntersections(new Ray(new Point(1,-1,0),new Vector(0.5,-0.5,-1))), "ERROR: findIntersections does not return null when the ray starts inside the polygon");
+
+      //Test with distance
+
+      List<Point> result02 = polygon.findIntersections(new Ray(new Point(0,0,1.5),new Vector(1,-1.5,-1.5)),1000);
+      //TC21: Test all the geometries are intersecting with max distance
+      assertEquals(1,result02.size(),"ERROR: some of the geometries are not intersecting");
+
+      List<Point> result04 = polygon.findIntersections(new Ray(new Point(0,0,30),new Vector(1,-1.5,-1.5)),0.1);
+      //TC21: Test none of the geometries are intersecting because of the max distance
+      assertNull(result04,"ERROR: the geometries aren't intersecting because of the max distance");
    }
 }

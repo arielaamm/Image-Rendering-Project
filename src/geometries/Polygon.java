@@ -3,6 +3,7 @@ package geometries;
 import java.util.ArrayList;
 import java.util.List;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 import primitives.Point;
@@ -85,7 +86,7 @@ public class Polygon extends Geometry {
       * @return A list of points representing the intersections with the ray.
       */
      @Override
-     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
           List <Point> intersectionList = plane.findIntersections(ray);
              if(intersectionList == null)
                  return null;

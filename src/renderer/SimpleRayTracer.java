@@ -227,7 +227,6 @@ public class SimpleRayTracer extends RayTracerBase {
 	 * @param n normal vector to the surface of gp
 	 * @return accumulated transparency attenuation factor
 	 */
-
 	private boolean unshaded(GeoPoint gp,LightSource lightSource ,Vector l, Vector n) {
 
 		Vector lightDirection = l.scale(-1); // from point to light source
@@ -238,7 +237,7 @@ public class SimpleRayTracer extends RayTracerBase {
 		Ray lightRay = new Ray(pointRay, lightDirection);
 
 		double maxdistance = lightSource.getDistance(gp.point);
-		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay /*,maxdistance*/);
+		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay ,maxdistance);
 
 		if (intersections == null){
 			return true;
@@ -303,16 +302,12 @@ public class SimpleRayTracer extends RayTracerBase {
 		Ray lightRay = new Ray(point, n, lightDirection);
 
 		double maxdistance = lightSource.getDistance(point);
-		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay/*,maxdistance*/);
+		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay,maxdistance);
 
 		if (intersections == null)
 			return Double3.ONE;
 
 		Double3 ktr = Double3.ONE;
-//        loop over intersections and for each intersection which is closer to the
-//        point than the light source multiply ktr by 𝒌𝑻 of its geometry.
-//        Performance:
-//        if you get close to 0 –it’s time to get out( return 0)
 		for (var geo : intersections) {
 			ktr = ktr.product(geo.geometry.getMaterial().kT);
 			if (ktr.lowerThan(MIN_CALC_COLOR_K)) {

@@ -26,18 +26,18 @@ public class Triangle extends Polygon{
      */
     //Barycentric Coordinates
     @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        List <Point> intersectionList = plane.findIntersections(ray);
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
+        List <GeoPoint> intersectionList = plane.findGeoIntersections(ray,maxDistance);
         if(intersectionList == null)
             return null;
-        Point intersectionPoint = intersectionList.getFirst();
+        GeoPoint intersectionPoint = intersectionList.getFirst();
         Vector v0;
         Vector v1;
         Vector v2;
         try {
             v0 = vertices.get(1).subtract(vertices.get(0));
             v1 = vertices.get(2).subtract(vertices.get(0));
-            v2 = intersectionPoint.subtract(vertices.get(0));
+            v2 = intersectionPoint.point.subtract(vertices.get(0));
         }
         catch (IllegalArgumentException e) {
             return null;
@@ -56,7 +56,7 @@ public class Triangle extends Polygon{
         double u = 1.0 - v - w;
 
         if (v > 0 && w > 0 && u > 0 && v < 1 && w < 1 && u < 1) {
-            return List.of(new GeoPoint(this,intersectionPoint));
+            return List.of(new GeoPoint(this,intersectionPoint.point));
         } else {
             return null;            // Point is outside the triangle
 

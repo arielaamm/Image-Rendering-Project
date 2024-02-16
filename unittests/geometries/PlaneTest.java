@@ -85,5 +85,15 @@ class PlaneTest {
         //TC16: test of beyond ray intersects the plane starting from the reference point in the plane
         Ray rayBeyondRay2 = new Ray(new Point(0,0,2),new Vector(-2,2,-2));
         assertNull(plane.findIntersections(rayBeyondRay2) , "ERROR: beyond ray intersect the plane 0 time");
+
+        //Test with distance
+
+        List<Point> result02 = plane.findIntersections(rayUsual,1000);
+        //TC21: Test all the geometries are intersecting with max distance
+        assertEquals(1,result02.size(),"ERROR: some of the geometries are not intersecting");
+
+        List<Point> result04 = plane.findIntersections(rayUsual,1);
+        //TC21: Test none of the geometries are intersecting because of the max distance
+        assertNull(result04,"ERROR: the geometries aren't intersecting because of the max distance");
     }
 }

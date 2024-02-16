@@ -49,5 +49,19 @@ class GeometriesTest {
         List<Point> result14 = geometries14.findIntersections(new Ray(new Point(-1,-4,0),new Vector(2,2,0)));
         assertEquals(5,result14.size(),"ERROR: some of the geometries are not intersecting");
 
+
+        //Test with distance
+
+        //TC21: Test all the geometries are intersecting with max distance
+        List<Point> result02 = geometries01.findIntersections(new Ray(new Point(-1,-4,0),new Vector(2,2,0)),1000);
+        assertEquals(4,result02.size(),"ERROR: some of the geometries are not intersecting");
+
+        //TC21: Test some of the geometries are intersecting but other don't because of the max distance
+        List<Point> result03 = geometries01.findIntersections(new Ray(new Point(-1,-4,0),new Vector(2,2,0)),2);
+        assertEquals(1,result03.size(),"ERROR: some of the geometries are not intersecting");
+
+        //TC21: Test none of the geometries are intersecting because of the max distance
+        List<Point> result04 = geometries01.findIntersections(new Ray(new Point(-1,-4,0),new Vector(2,2,0)),1);
+        assertNull(result04,"ERROR: the geometries aren't intersecting because of the max distance");
     }
 }

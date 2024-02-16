@@ -88,5 +88,15 @@ class SphereTest {
         // **** Group: Special cases
         // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
         assertNull(sphere.findIntersections(new Ray(new Point(1,-2,0),new Vector(0,0,-2))), "Ray's line is outside, ray is orthogonal to ray start to sphere's center line");
+
+        //Test with distance
+
+        List<Point> result02 = sphere.findIntersections(new Ray(new Point(3,0,0),new Vector(-1,0,0)),1000);
+        //TC21: Test all the geometries are intersecting with max distance
+        assertEquals(2,result02.size(),"ERROR: some of the geometries are not intersecting");
+
+        List<Point> result04 = sphere.findIntersections(new Ray(new Point(30,0,0),new Vector(-1,0,0)),1);
+        //TC21: Test none of the geometries are intersecting because of the max distance
+        assertNull(result04,"ERROR: the geometries aren't intersecting because of the max distance");
     }
 }

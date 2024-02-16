@@ -60,6 +60,14 @@ class TriangleTest {
         Ray rayOnContinuesSides = new Ray(new Point(2,-2,1),new Vector(-3,2,2));
         assertNull(triangleIntersection.findIntersections(rayOnContinuesSides), "ERROR: on the continues of the side ray does not intersect with the triangle");
 
+        //Test with distance
 
+        List<Point> result02 = triangleIntersection.findIntersections(rayUsual,1000);
+        //TC21: Test all the geometries are intersecting with max distance
+        assertEquals(1,result02.size(),"ERROR: some of the geometries are not intersecting");
+
+        List<Point> result04 = triangleIntersection.findIntersections(rayUsual,1);
+        //TC21: Test none of the geometries are intersecting because of the max distance
+        assertNull(result04,"ERROR: the geometries aren't intersecting because of the max distance");
     }
 }
