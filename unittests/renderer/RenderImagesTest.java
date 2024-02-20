@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import primitives.*;
 import scene.Scene;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
