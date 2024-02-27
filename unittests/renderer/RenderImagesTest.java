@@ -26,6 +26,8 @@ public class RenderImagesTest {
 	Point j = new Point(500, -1000, 0);
 
 	private final Material material = new Material().setKd(new Double3(0.7, 0.6, 0.4)).setKs(new Double3(0.7, 0.8, 0.3)).setnShininess(300);
+	private final Material material1 = new Material().setKd(new Double3(0.7, 0.6, 0.4)).setKs(new Double3(0.7, 0.8, 0.3)).setnShininess(300);
+
 	private final Scene scene = new Scene("10AndMoreShapesImage");
 	private final Camera.Builder cameraBuilder = Camera.getBuilder()
 			.setDirection(new Vector(120, -70, -10), new Vector(0,0,1))
@@ -43,7 +45,7 @@ public class RenderImagesTest {
 			Random rand = new Random();
 			Sphere sphere = new Sphere(new Point(rand.nextInt(30, 50), rand.nextInt(15, 40), rand.nextInt(25, 70)), rand.nextInt(7, 10));
 			scene.geometries.add(sphere.setMaterial(material
-							.setKt(new Double3(rand.nextDouble(0, 0.6)))
+							.setKt(new Double3(rand.nextDouble(0.1, 0.2)))
 							.setKr(new Double3(rand.nextDouble(0, 0.05))))
 					.setEmission(new Color(rand.nextInt(40, 100), rand.nextInt(130, 150), rand.nextInt(60, 90))));
 		}
@@ -53,7 +55,7 @@ public class RenderImagesTest {
 				new Polygon(d, c, f, a).setMaterial(material.setKt(new Double3(0.2))).setEmission(new Color(107, 73, 43)),
 				new Triangle(a, e, f).setMaterial(material.setKt(new Double3(0.2))).setEmission(new Color(107, 73, 43)),
 
-				new Polygon(g, h, i, j).setMaterial(material.setKt(new Double3(0.2))).setEmission(new Color(56, 178, 44)));
+				new Polygon(g, h, i, j).setMaterial(material1.setKt(new Double3(0.2)).setKr(new Double3(0.5))).setEmission(new Color(java.awt.Color.GRAY)));
 
 		scene.lights.add(new SpotLight(new Color(97, 194, 152), new Point(-80, 50, 40), new Vector(50, -70, -10)));
 

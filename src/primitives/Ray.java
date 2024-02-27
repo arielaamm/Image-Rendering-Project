@@ -1,7 +1,6 @@
 package primitives;
 
 import static geometries.Intersectable.GeoPoint;
-import static primitives.Util.alignZero;
 
 import java.util.List;
 import java.util.Objects;
@@ -42,7 +41,7 @@ public class Ray {
     public Ray(Point p, Vector n, Vector dir) {
         this.direction = dir.normalize();
         double nv = n.dotProduct(this.direction);
-        Vector delta  =n.scale(DELTA);
+        Vector delta = n.scale(DELTA);
         if (nv < 0)
             delta = delta.scale(-1);
         this.head = p.add(delta);
@@ -87,6 +86,12 @@ public class Ray {
         }
         return closestPoint;
     }
+    /**
+     * Find the closest point from a list of intersections.
+     *
+     * @param  intersections  the list of intersections
+     * @return               the closest point
+     */
     public Point findClosestPoint(List<Point> intersections) {
         return intersections == null ? null : findClosestGeoPoint(intersections.stream()
                 .map(p -> new GeoPoint(null, p)).toList()).point;

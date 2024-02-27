@@ -21,6 +21,14 @@ public class Material {
 	 */
 	public Double3 kT = Double3.ZERO;
 	/**
+	 *  Glossiness factor
+	 */
+	public double kG = 0;
+	/**
+	 * Blurriness factor
+	 */
+	public double kB = 0;
+	/**
 	 * nShininess is the shininess of the material.
 	 */
 	public int nShininess = 1;
@@ -46,6 +54,27 @@ public class Material {
 		this.kD = new Double3(kD);
 		return this;
 	}
+	/**
+	 * Set the kG value.
+	 *
+	 * @param  kG  the new kG value
+	 * @return     the updated Material object
+	 */
+	public Material setKg(double kG) {
+		this.kG = kG;
+		return  this;
+	}
+	/**
+	 * Sets the value of kB and returns the updated Material object.
+	 *
+	 * @param  kB  the new value for kB
+	 * @return     the updated Material object
+	 */
+	public Material setKb(double kB) {
+		this.kB = kB;
+		return this;
+	}
+
 	/**
 	 * Sets the kR value.
 	 *
