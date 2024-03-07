@@ -1,4 +1,4 @@
-package renderer;
+package special;
 
 import static java.awt.Color.*;
 
@@ -95,7 +95,7 @@ class GlossAndBlurTests {
 				.setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
 				.setRayTracer(new SimpleRayTracer(scene))
 				.setLocation(new Point(40, 0, 1000))
-				.setImageWriter(new ImageWriter("BlurredNewCombo1", 500, 500))
+				.setImageWriter(new ImageWriter("BlurredNewCombo2", 500, 500))
 				.setVpSize(200, 200)
 				.setVpDistance(1000);
 		scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
@@ -106,8 +106,9 @@ class GlossAndBlurTests {
 				new Triangle(new Point(-10, 0, 70), new Point(0, 90, 40), new Point(80, 0, 50))
 						.setMaterial(new Material().setKt(0.3).setKb(7)).setEmission(new Color(GRAY)),
 				new Plane(new Point(70, 0, -140), new Vector(-0.35, 0, 1))
-						.setMaterial(new Material().setKg(3).setKr(0.9)).setEmission(new Color(0, 30, 50)));
-
+						.setMaterial(new Material().setKg(3).setKr(0.9)).setEmission(new Color(0, 30, 50)),
+				new Triangle(new Point(-10, -50, 70), new Point(0, 40, 40), new Point(80, -50, 50))
+					.setMaterial(new Material().setKt(0.3).setKb(3)).setEmission(new Color(GRAY)));
 		scene.setBackground(new Color(30, 10, 0));
 		scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1))
 				.setKl(4E-5).setKq(2E-7));

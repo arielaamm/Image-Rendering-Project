@@ -177,14 +177,10 @@ public class SimpleRayTracer extends RayTracerBase {
 		if (rays.size() == 1)
 			return calcGlobalEffect(rays.getFirst(), kx, level, k);
 		Color color = Color.BLACK;
-		int counter = 0;
 		for (Ray ray : rays) {
 			color = color.add(calcGlobalEffect(ray, kx, level, k));
-			counter++;
 		}
-		if (counter == 0)
-			return color;
-		return color.scale(1.0 / counter);
+		return color.scale(1.0 / rays.size());
 	}
 
 

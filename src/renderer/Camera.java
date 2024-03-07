@@ -5,7 +5,9 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.LinkedList;
 import java.util.MissingResourceException;
+import java.util.stream.IntStream;
 
 /**
  * The Camera class represents a camera in the scene.
@@ -23,6 +25,22 @@ public class Camera implements Cloneable{
         public Builder() {}
 
 
+        public Builder setMultithreading(int thread)
+        {
+            if(thread < -2) throw new IllegalArgumentException("Multithreading must be -2 or higher");
+            if(thread >=-1) camera.threadsCount = thread;
+            else{ // -2
+                int cores = Runtime.getRuntime().availableProcessors() - camera.SPARE_THREADS;
+                camera.threadsCount = cores <= 2 ? 1 : cores;
+            }
+            return this;
+        }
+
+        public Builder setDebugPrint( double interval)
+        {
+            camera.printInterval = interval;
+            return this;
+        }
         /**
          * Set the location of the camera
          * @param location
@@ -132,6 +150,13 @@ public class Camera implements Cloneable{
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
     private final TargetArea viewPlane = new TargetArea();
+    private PixelManager pixelManager;
+
+    private int threadsCount = 0; // -2 auto, -1 range/stream, 0 no threads, 1+ number of threads
+    private final int SPARE_THREADS = 2; // Spare threads if trying to use all the cores
+    private double printInterval = 0; // printing progress percentage interval
+
+
     private Camera(){}
 
     /**
@@ -186,13 +211,33 @@ public class Camera implements Cloneable{
     public Camera renderImage(){
         int nx = imageWriter.getNx();
         int ny = imageWriter.getNy();
-        for (int i = 0; i < nx; i++) {
-            for (int j = 0; j < ny; j++) {
-                if(i == 226 && j == 326) {
-                    castRay(nx, ny, i, j);
+        pixelManager = new PixelManager(ny, nx, printInterval);
+        if (threadsCount == 0) {
+            for (int i = 0; i < ny; i++) {
+                for (int j = 0; j < nx; j++) {
+                    castRay(nx, ny, j, i);
                 }
-                castRay(nx, ny, i, j);
             }
+        } else if (threadsCount == -1) {
+            IntStream.range(0,ny).parallel()
+                    .forEach(i -> IntStream.range(0,nx).parallel()
+                            .forEach(j -> castRay(nx, ny, j, i)));
+        } else {
+            var threads = new LinkedList<Thread>();
+            while (threadsCount --> 0)
+                threads.add(new Thread(() -> {
+                    PixelManager.Pixel pixel;
+                    while ((pixel = pixelManager.nextPixel()) != null)
+                        castRay(nx, ny, pixel.col(), pixel.row());
+                }));
+            for (var thread : threads)
+                thread.start();
+            try {
+                for (var thread : threads) {
+	                thread.join();
+                }
+            }
+            catch (InterruptedException ignore) {}
         }
         return this;
     }
@@ -207,6 +252,7 @@ public class Camera implements Cloneable{
      */
     private void castRay(int nx, int ny, int i, int j) {
         imageWriter.writePixel(j, i, rayTracer.traceRay(constructRay(nx, ny, j, i)));
+        pixelManager.pixelDone();
     }
 
     /**

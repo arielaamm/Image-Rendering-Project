@@ -15,7 +15,7 @@ import static primitives.Util.isZero;
  * TargetArea object is targeted the VP
  */
 public class TargetArea {
-	private final static int DENSITY = 5;
+	private final static int DENSITY = 3;
 	Point location;
 	Vector vTo;
 	Vector vRight;
@@ -41,7 +41,7 @@ public class TargetArea {
 	}
 
 	/**
-	 * diffolt costractor
+	 * default contractor
 	 */
 	public TargetArea() {}
 
