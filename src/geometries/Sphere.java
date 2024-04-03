@@ -60,6 +60,18 @@ public class Sphere extends RadialGeometry{
         }
         return null;
     }
+
+    /**
+     * A description of the entire Java function.
+     *
+     * @return description of return value
+     */
+    @Override
+    public List<Point> minMaxPoints() {
+        return List.of(new Point(center.getX() - radius , center.getY() - radius, center.getZ() - radius), //
+                new Point(center.getX() + radius , center.getY() + radius, center.getZ() + radius));
+    }
+
     /**
      * @param p the point at which to calculate the normal vector
      * @return the normal vector of the sphere at the point

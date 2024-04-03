@@ -18,40 +18,43 @@ import scene.Scene;
 class GlossAndBlurTests {
 	private Scene scene = new Scene("Test scene");
 
-//	 @Test
-//	public void TestCombo() {
-//		 final Camera.Builder cameraBuilder = Camera.getBuilder()
-//				 .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
-//				 .setRayTracer(new SimpleRayTracer(scene))
-//				 .setLocation(new Point(0, 0, 1000))
-//				 .setVpDistance(1000)
-//				 .setVpSize(200, 200)
-//				 .setImageWriter(new ImageWriter("ComboWithBlur", 500, 500));
-//
-//		scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
-//
-//		scene.geometries.add(
-//				new Sphere(new Point(0, 0, 0), 50d)
-//						.setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(10).setKt(0.8))
-//						.setEmission(new Color(RED)),
-//				new Sphere(new Point(0, 0, 0), 25d).setMaterial(new Material().setKd(0.2).setKs(0.8).setShininess(50))
-//						.setEmission(new Color(GRAY)),
-//				new Triangle(new Point(-120, 10, 0), new Point(0, -100, -50), new Point(0, 110, -50))
-//						.setMaterial(new Material().setKd(0.1).setKr(0.6).setKg(20)),
-//				new Triangle(new Point(0, 0, 50), new Point(0, 90, 50), new Point(80, 0, 50))
-//						.setMaterial(new Material().setKd(0.1).setKt(0.3).setKb(10)),
-//				new Plane(new Point(70, 0, -140), new Vector(-0.35, 0, 1))
-//						.setMaterial(new Material().setKg(7).setKr(0.9)).setEmission(new Color(0, 30, 50)));
-//
-//		scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1))
-//				.setKl(4E-5).setKq(2E-7));
-//
-//		scene.setBackground(new Color(0, 100, 160));
-//
-//		 cameraBuilder.build()
-//				.renderImage()
-//				.writeToImage();
-//	}
+	 @Test
+	public void TestCombo() {
+		 final Camera.Builder cameraBuilder = Camera.getBuilder()
+				 .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
+				 .setRayTracer(new SimpleRayTracer(scene))
+				 .setLocation(new Point(0, 0, 1000))
+				 .setVpDistance(1000)
+				 .setVpSize(200, 200)
+				 .setImageWriter(new ImageWriter("ComboWithBlur", 500, 500))
+				 .setMultithreading(3)
+				 .setDebugPrint(0.1);
+
+
+		scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
+
+		scene.geometries.add(
+				new Sphere(new Point(0, 0, 0), 50d)
+						.setMaterial(new Material().setKd(0.3).setKs(0.7).setShininess(10).setKt(0.8))
+						.setEmission(new Color(RED)),
+				new Sphere(new Point(0, 0, 0), 25d).setMaterial(new Material().setKd(0.2).setKs(0.8).setShininess(50))
+						.setEmission(new Color(GRAY)),
+				new Triangle(new Point(-120, 10, 0), new Point(0, -100, -50), new Point(0, 110, -50))
+						.setMaterial(new Material().setKd(0.1).setKr(0.6).setKg(20)),
+				new Triangle(new Point(0, 0, 50), new Point(0, 90, 50), new Point(80, 0, 50))
+						.setMaterial(new Material().setKd(0.1).setKt(0.3).setKb(10)),
+				new Plane(new Point(70, 0, -140), new Vector(-0.35, 0, 1))
+						.setMaterial(new Material().setKg(7).setKr(0.9)).setEmission(new Color(0, 30, 50)));
+
+		scene.lights.add(new SpotLight(new Color(700, 400, 400), new Point(60, 50, 0), new Vector(0, 0, -1))
+				.setKl(4E-5).setKq(2E-7));
+
+		scene.setBackground(new Color(0, 100, 160));
+
+		 cameraBuilder.build()
+				.renderImage()
+				.writeToImage();
+	}
 
 	/** Produce a picture of a sphere within a sphere mirrored by a double mirror */
 	 @Test
@@ -62,7 +65,9 @@ class GlossAndBlurTests {
 				 .setLocation(new Point(0, 0, 10000))
 				 .setImageWriter(new ImageWriter("reflectionTwoSpheresMirroredWithGloss", 500, 500))
 				 .setVpSize(2500, 2500)
-				 .setVpDistance(10000);
+				 .setVpDistance(10000)
+				 .setMultithreading(3)
+				 .setDebugPrint(0.1);
 
 		scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
 
@@ -97,7 +102,11 @@ class GlossAndBlurTests {
 				.setLocation(new Point(40, 0, 1000))
 				.setImageWriter(new ImageWriter("BlurredNewCombo2", 500, 500))
 				.setVpSize(200, 200)
-				.setVpDistance(1000);
+				.setVpDistance(1000)
+				.setVpSize(2500, 2500)
+				.setVpDistance(10000)
+				.setMultithreading(3)
+				.setDebugPrint(0.1);
 		scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
 
 		scene.geometries.add(

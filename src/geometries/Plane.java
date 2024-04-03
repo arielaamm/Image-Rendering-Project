@@ -83,4 +83,8 @@ public class Plane extends Geometry{
         }
         return null;
     }
+    @Override
+    public List<Point> minMaxPoints() {
+        return List.of(Point.NEGATIVE_INFINITE, Point.POSITIVE_INFINITE);
+    }
 }

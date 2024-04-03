@@ -109,5 +109,8 @@ public class Polygon extends Geometry {
      }
     @Override
     public Vector getNormal(Point point) { return plane.getNormal(); }
-
+    @Override
+    public List<Point> minMaxPoints() {
+        return List.of(Point.findMinimum(vertices), Point.findMaximum(vertices));
+    }
 }

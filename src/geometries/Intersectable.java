@@ -13,7 +13,8 @@ import java.util.Objects;
 public abstract class Intersectable {
 
 
-    /**
+
+	/**
      * The geometry that was hit.
      */
     public static class GeoPoint {
@@ -116,4 +117,11 @@ public abstract class Intersectable {
      * @return             description of return value
      */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
+    /**
+     * A description of the entire Java function.
+     *
+     * @return         description of return value
+     */
+    public abstract List<Point> minMaxPoints();
+
 }

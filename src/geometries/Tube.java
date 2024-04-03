@@ -57,6 +57,17 @@ public class Tube extends RadialGeometry {
             return List.of(new GeoPoint(this, ray.getPoint(t2)));
         return null;
     }
+
+    /**
+     * A description of the entire Java function.
+     *
+     * @return description of return value
+     */
+    @Override
+    public List<Point> minMaxPoints() {
+        return null;
+    }
+
     /**
      * @param p the point at which to calculate the normal vector
      * @return the normal vector of the tube at the point

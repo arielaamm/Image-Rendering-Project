@@ -1,13 +1,16 @@
 package primitives;
 
 
+import java.util.List;
 import java.util.Objects;
 
 /**
  * A point in 3D space.
  */
 public class Point {
-    /**
+	public static final Point POSITIVE_INFINITE = new Point(Double3.POSITIVE_INFINITE);
+    public static final Point NEGATIVE_INFINITE = new Point(Double3.NEGATIVE_INFINITE);
+	/**
      * The coordinates of the point.
      */
     protected final Double3 xyz;
@@ -33,6 +36,43 @@ public class Point {
     }
 
     /**
+     * Finds the minimum x, y, and z coordinates among the given list of points.
+     *
+     * @param  points   the list of points to search for minimum coordinates
+     * @return          the point with the minimum x, y, and z coordinates
+     */
+    public static Point findMinimum(List<Point> points) {
+        double xMin = Double.POSITIVE_INFINITY;
+        double yMin = Double.POSITIVE_INFINITY;
+        double zMin = Double.POSITIVE_INFINITY;
+        for (Point point : points) {
+            xMin = point.getX() < xMin ? point.getX() : xMin;
+            yMin = point.getY() < yMin ? point.getY() : yMin;
+            zMin = point.getZ() < zMin ? point.getZ() : zMin;
+        }
+
+        return new Point(xMin, yMin, zMin);
+    }
+
+    /**
+     * Finds the maximum x, y, and z coordinates among the given list of points.
+     *
+     * @param  points   the list of points to search for maximum coordinates
+     * @return          the point with the minimum x, y, and z coordinates
+     */
+    public static Point findMaximum(List<Point> points) {
+        double xMax = Double.NEGATIVE_INFINITY;
+        double yMax = Double.NEGATIVE_INFINITY;
+        double zMax = Double.NEGATIVE_INFINITY;
+        for (Point point : points) {
+            xMax = point.getX() > xMax ? point.getX() : xMax;
+            yMax = point.getY() > yMax ? point.getY() : yMax;
+            zMax = point.getZ() > zMax ? point.getZ() : zMax;
+        }
+        return new Point(xMax, yMax, zMax);
+    }
+
+	/**
      * Subtracts the coordinates of the given point from the coordinates of this point,
      * and returns a new Vector representing the result.
      *
@@ -74,6 +114,16 @@ public class Point {
     public double distance(Point p) {
         return Math.sqrt(this.distanceSquared(p));
     }
+    /**
+     * Scales the vector by the given factor.
+     *
+     * @param  d   the factor by which the vector is to be scaled
+     * @return     a new Vector representing the scaled vector
+     */
+    public Point scale (double d){
+        return new Point(xyz.scale(d));
+    }
+
     /**
      * Get the value of x.
      *

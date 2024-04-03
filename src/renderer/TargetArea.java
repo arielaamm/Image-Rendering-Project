@@ -15,7 +15,7 @@ import static primitives.Util.isZero;
  * TargetArea object is targeted the VP
  */
 public class TargetArea {
-	private final static int DENSITY = 3;
+	private final static int DENSITY = 10;
 	Point location;
 	Vector vTo;
 	Vector vRight;
