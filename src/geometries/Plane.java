@@ -83,6 +83,11 @@ public class Plane extends Geometry{
         }
         return null;
     }
+    /**
+     * A description of the entire Java function.
+     *
+     * @return         	description of return value
+     */
     @Override
     public List<Point> minMaxPoints() {
         return List.of(Point.NEGATIVE_INFINITE, Point.POSITIVE_INFINITE);

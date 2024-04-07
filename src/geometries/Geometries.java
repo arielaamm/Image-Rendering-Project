@@ -51,6 +51,11 @@ public class Geometries extends Intersectable{
         }
         return result;
     }
+    /**
+     * A description of the entire Java function.
+     *
+     * @return         	description of return value
+     */
     @Override
     public List<Point> minMaxPoints() {
         // set the objects to default values

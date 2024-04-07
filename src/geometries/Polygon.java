@@ -107,8 +107,19 @@ public class Polygon extends Geometry {
              }
              return null;
      }
+    /**
+     * Get the normal vector of the plane.
+     *
+     * @param  point the point on the plane
+     * @return       the normal vector of the plane
+     */
     @Override
     public Vector getNormal(Point point) { return plane.getNormal(); }
+    /**
+     * Method to retrieve the minimum and maximum points from the given list of vertices.
+     *
+     * @return         	list containing the minimum and maximum points
+     */
     @Override
     public List<Point> minMaxPoints() {
         return List.of(Point.findMinimum(vertices), Point.findMaximum(vertices));

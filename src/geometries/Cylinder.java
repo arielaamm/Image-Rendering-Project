@@ -48,4 +48,11 @@ public class Cylinder extends Tube {
         // Point is on the side surface
         return super.getNormal(p);
     }
+    /**
+     * A description of the entire Java function.
+     *
+     * @return         description of return value
+     */
+    @Override
+    public List<Point> minMaxPoints() { return null;}
 }

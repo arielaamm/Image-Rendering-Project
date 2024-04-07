@@ -61,7 +61,12 @@ public class CBR extends Geometries {
 	public Point getMax() {
 		return max;
 	}
-
+	/**
+	 * A method to add geometries to the collection and update min and max points accordingly.
+	 *
+	 * @param  geometries	variable number of Intersectable objects to be added
+	 * @return         	void
+	 */
 	@Override
 	public void add(Intersectable... geometries) {
 		for (Intersectable obj : geometries) {
@@ -93,7 +98,13 @@ public class CBR extends Geometries {
 		Point center = minPoint.add(maxPoint).scale(0.5); // center point
 		return center.getX() + center.getY() + center.getZ();
 	}
-
+	/**
+	 * Generate the function comment for the given function body in a markdown code block with the correct language syntax.
+	 *
+	 * @param  ray         description of parameter
+	 * @param  maxDistance description of parameter
+	 * @return             description of return value
+	 */
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
 		double tmin = Double.NEGATIVE_INFINITY;
@@ -130,7 +141,7 @@ public class CBR extends Geometries {
 	}
 
 	/**
-	 * This method wraps the recursive helper in order to sort the list only once.
+	 * This method wraps the recursive helper to sort the list only once.
 	 *
 	 * @return the updated CBR
 	 */
@@ -154,7 +165,7 @@ public class CBR extends Geometries {
 	}
 
 	/**
-	 * Recursive algorithm which builds an hierarchy tree of CBRs from sorted list of CBRs.
+	 * Recursive algorithm which builds a hierarchy tree of CBRs from a sorted list of CBRs.
 	 *
 	 * @param geometries the list of CBRs
 	 * @return the top of the tree
