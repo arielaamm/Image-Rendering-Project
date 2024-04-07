@@ -18,7 +18,7 @@ import renderer.SimpleRayTracer;
 import scene.Scene;
 
 /**
- * Test rendering an image
+ * Test rendering an images
  *
  * @author Dan
  */
