@@ -1,5 +1,6 @@
 # Image Rendering Project
 
+## Description
 This is an image rendering project in Java that allows you to create and render images using different geometric shapes and Light structures. The project is built in an architectural way with a variety of design patterns to make it modular and extensible.
 
 ## Features
