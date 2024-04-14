@@ -10,7 +10,6 @@ import primitives.*;
 /**
  * Implements the CBR object.
  *
- * @author Aminadav Brener &amp Yoav Seri
  */
 public class CBR extends Geometries {
 	/** minimum coordinates point of the bound */
